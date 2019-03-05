@@ -20,4 +20,14 @@ export class ThemeService {
   set theme(theme: Theme) {
     this.currentThemeSubject.next(theme);
   }
+
+  getColor(color: string) {
+    switch (color) {
+      case 'warn': return this.theme.warnColor; break;
+      case 'primary': return this.theme.primaryColor; break;
+      case 'accent': return this.theme.accentColor; break;
+      case 'text': return this.theme.textColor; break;
+      default: return this.theme.primaryColor; break;
+    }
+  }
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ThemeService } from 'src/app/services/theme.service';
-import { Theme } from 'src/app/constants/theme';
-import { themes } from 'src/app/constants/themes';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
+
 
 
 @Component({
@@ -12,22 +11,23 @@ import { themes } from 'src/app/constants/themes';
 export class BulletElementComponent implements OnInit {
 
   @Input()
-  bullet: string = "disc";
+  editable: boolean = true;
 
-  themes = themes;
+  @Input()
+  hideIfEmpty: boolean = false;
 
-  constructor(private themeService: ThemeService) { }
+  @Input()
+  placeholder: string;
 
-  get activeTheme(){
-    return this.themeService.theme;
-  }
 
-  changeThemeTo(selectedTheme: Theme){
-    this.themeService.theme = selectedTheme;
-  }
+  constructor() { }
 
+
+  @Input()
+  points: string[] = [];
 
   ngOnInit() {
   }
+
 
 }

@@ -1,3 +1,5 @@
-<div contentEditable='true'>
-  lorem ipsum dolor lorem ipsum dolorlorem ipsum dolor
+<div [hidden]="hidden" #divTag (click)="click();" [contentEditable]='isEditable' [textContent]="value"
+  (input)="value=$event.target.textContent" [attr.data-placeholder]="placeholder" [attr.data-editable]="isEditable"
+  [attr.data-bordercolor]="borderColor">
+  {{value}}
 </div>

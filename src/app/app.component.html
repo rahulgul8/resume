@@ -1,7 +1,15 @@
 <router-outlet>
   <paper>
-    <h1>Hi there</h1>
-    <app-element heading></app-element>
-    <bullet-element bullet="disc"></bullet-element>
+    <div>
+      <app-template [editable]="editable">
+        <app-element [editable]="editable" textColor='accent' [hideIfEmpty]="false" placeholder="Hi there" heading>
+        </app-element>
+        <ul>
+          <bullet-element [editable]="editable" [hideIfEmpty]="true" placeholder='place'></bullet-element>
+        </ul>
+      </app-template>
+    </div>
+    <button (click)="changeThemeTo(theme)" *ngFor="let theme of themes">{{theme.name}}</button>
+    <button (click)="editable=!editable">Toggle edit mode</button>
   </paper>
 </router-outlet>

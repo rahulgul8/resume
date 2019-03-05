@@ -12,6 +12,8 @@ import { ElementComponent } from './components/element/element.component';
 import { BulletElementComponent } from './components/bullet-element/bullet-element.component';
 import { SubHeadingDirective } from './directives/sub.heading.directive';
 import { HeadingDirective } from './directives/heading.directive';
+import { BulletDirective } from './directives/bullet.directive';
+import { TemplateComponent } from './components/template/template.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { HeadingDirective } from './directives/heading.directive';
     ElementComponent,
     BulletElementComponent,
     SubHeadingDirective,
-    HeadingDirective
+    HeadingDirective,
+    BulletDirective,
+    TemplateComponent
   ],
   imports: [
     BrowserModule,

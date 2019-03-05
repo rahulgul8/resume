@@ -1,7 +1,4 @@
-<ul [type]="bullet">
-  <li heading *ngFor="let theme of themes"><span>
-      <app-element></app-element>
-    </span>
-  </li>
-</ul>
-<button (click)="changeThemeTo(theme)" *ngFor="let theme of themes">{{theme.name}}</button>
+<li [hidden]="element.hidden">
+  <app-element #element [hideIfEmpty]='true' [editable]="editable" [placeholder]="placeholder">
+  </app-element>
+</li>

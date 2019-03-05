@@ -8,7 +8,11 @@ import { ThemeService } from '../services/theme.service';
 export class HeadingDirective extends ParentDirective {
 
   @HostBinding('style.color') get color() {
-    return this.themeService.theme.backgroundColor;
+    return this.themeService.theme.textColor;
+  };
+
+  @HostBinding('style.backgroundColor') get bgcolor() {
+    return this.themeService.theme.paperBackground;
   };
 
   constructor(private renderer: Renderer2, hostElement: ElementRef, private themeService: ThemeService) {

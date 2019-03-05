@@ -2,10 +2,21 @@
   <paper>
     <div>
       <app-template [editable]="editable">
-        <app-element [editable]="editable" textColor='accent' [hideIfEmpty]="false" placeholder="Hi there" heading>
+        <app-element [editable]="editable" color='primary' [hideIfEmpty]="false" placeholder="Hi there" heading>
         </app-element>
         <ul>
-          <bullet-element [editable]="editable" [hideIfEmpty]="true" placeholder='place'></bullet-element>
+          <bullet-element bulletColor="warn" color='accent' [hideIfEmpty]="true"
+            placeholder='place'>
+          </bullet-element>
+          <bullet-element bulletColor="primary" color='warn' [hideIfEmpty]="true"
+            placeholder='place'>
+          </bullet-element>
+          <bullet-element bulletColor="text" color='primary' [editable]="editable" [hideIfEmpty]="true"
+            placeholder='place'>
+          </bullet-element>
+          <bullet-element bulletColor="accent" color='text' [editable]="editable" [hideIfEmpty]="true"
+            placeholder='place'>
+          </bullet-element>
         </ul>
       </app-template>
     </div>

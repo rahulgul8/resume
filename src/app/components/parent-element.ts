@@ -1,47 +1,33 @@
 import { Input, HostBinding } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
+import { TemplateComponent } from './template/template.component';
 
 export class ParentElement {
 
     public isHideIfEmpty: boolean = false;
 
-    public isEditable: boolean = true;
+
+    public value: string;
 
     @Input()
-    textColor: 'warn' | 'primary' | 'accent' | 'text' = 'text';
+    borderColor: 'warn' | 'primary' | 'accent' | 'text' = 'primary';
 
     @Input()
     placeholder: string;
 
     @Input()
-    color: 'warn' | 'primary' | 'accent' = 'primary';
+    color: 'warn' | 'primary' | 'accent' | 'text' = 'text';
 
+
+    @Input()
+    editable: boolean = true;
 
     @HostBinding('style.color') get textColorStyle() {
-        return this.themeService.getColor(this.textColor);
-    }
-
-    @HostBinding('style.borderColor') get borderColor() {
         return this.themeService.getColor(this.color);
     }
 
-    @Input()
-    set editable(editable: boolean) {
-        if (editable) {
-            this.isEditable = editable;
-        } else {
-            this.isEditable = false;
-        }
-    }
-
-    get editable() {
-        return this.isEditable;
-    }
-
-
-
-    subscription(editable: boolean) {
-        this.editable = editable;
+    @HostBinding('style.borderColor') get borderColorStyle() {
+        return this.themeService.getColor(this.borderColor);
     }
 
     @Input('hideIfEmpty')

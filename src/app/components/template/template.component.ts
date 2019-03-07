@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener } from '@angular/core';
 import { ElementComponent } from '../element/element.component';
 import { BulletElementComponent } from '../bullet-element/bullet-element.component';
-import { Subject } from 'rxjs';
+import { Subject, Observable, pipe } from 'rxjs';
 import { ParentElement } from '../parent-element';
+
 
 @Component({
   selector: 'app-template',
@@ -34,7 +35,6 @@ export class TemplateComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    debugger;
     if (changes['editable']) {
       this.updateEditableOnChildren();
     }
@@ -58,11 +58,20 @@ export class TemplateComponent implements OnInit, AfterViewInit, OnChanges {
   @Input()
   editable: boolean = true;
 
+
   focusout(event) {
-    debugger;
     if (!this.parent.nativeElement.contains(event.relatedTarget)) {
       this.editable = false;
       this.updateEditableOnChildren();
     }
   }
+
+  // @HostListener('document:click', ['$event.target'])
+  globalClickOutListener(event) {
+    if (!this.parent.nativeElement.contains(event) && this.editable) {
+      this.editable = false;
+      this.updateEditableOnChildren();
+    }
+  }
+
 }

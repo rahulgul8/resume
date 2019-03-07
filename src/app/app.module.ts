@@ -12,8 +12,11 @@ import { ElementComponent } from './components/element/element.component';
 import { BulletElementComponent } from './components/bullet-element/bullet-element.component';
 import { SubHeadingDirective } from './directives/sub.heading.directive';
 import { HeadingDirective } from './directives/heading.directive';
-import { BulletDirective } from './directives/bullet.directive';
+import { PopoverDirective } from './directives/popover.directive';
 import { TemplateComponent } from './components/template/template.component';
+import { PopoverComponent } from './components/popover/popover.component';
+import { TooltipComponent } from './modules/tooltip/tooltip.component';
+import { TooltipDirective } from './modules/tooltip/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -24,17 +27,22 @@ import { TemplateComponent } from './components/template/template.component';
     BulletElementComponent,
     SubHeadingDirective,
     HeadingDirective,
-    BulletDirective,
-    TemplateComponent
+    PopoverDirective,
+    TemplateComponent,
+    PopoverComponent,
+    TooltipComponent,
+    TooltipDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialsModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [],
+  entryComponents: [PopoverComponent, TooltipComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,3 +2,11 @@ div{
     margin: auto;
     padding: 50px;
 }
+
+paper{
+    padding: 10px;
+}
+
+.template{
+    margin: 20px;
+}

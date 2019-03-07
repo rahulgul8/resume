@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, ComponentRef, HostBinding, HostListener, OnChanges, ViewContainerRef } from '@angular/core';
+import { Directive, Input, ElementRef, ComponentRef, HostBinding, HostListener, OnChanges, ViewContainerRef, TemplateRef } from '@angular/core';
 import { DomService } from '../services/dom.service';
 import { PopoverComponent } from '../components/popover/popover.component';
 import { defaultOptions } from '../modules/tooltip/options';
@@ -19,32 +19,37 @@ export class PopoverDirective implements OnChanges {
     }
   }
 
+
   @Input()
-  mode: 'hover' | 'click' = 'click';
+  popoverMode: 'hover' | 'click' = 'click';
 
   popoverComp: ComponentRef<PopoverComponent>;
 
-  constructor(private container: ViewContainerRef, private dom: DomService, private element: ElementRef) { }
+  constructor(private container: ViewContainerRef, private template: TemplateRef<any>, private dom: DomService, private element: ElementRef) { }
+
+  ngOnInit(): void {
+    this.container.createEmbeddedView(this.template);
+  }
 
   @Input()
   popover: boolean = false;
 
   @HostListener('mouseover')
   mouseOver() {
-    if (this.mode == 'hover') { this.addPopover(); }
+    if (this.popoverMode == 'hover') { this.addPopover(); }
   }
 
   @HostListener('mouseout')
   mouseout() {
-    if (this.mode == 'hover') { this.removePopover(); }
+    if (this.popoverMode == 'hover') { this.removePopover(); }
   }
 
   addPopover() {
     setTimeout(() => {
       this.popoverComp = this.dom.appendComponentToBody(PopoverComponent, 'data',
         {
-          element: this.element.nativeElement,
-          options: defaultOptions
+          element: this.template.elementRef.nativeElement.parentElement,
+          placement: 'top'
         });
     });
   }

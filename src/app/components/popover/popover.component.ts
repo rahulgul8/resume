@@ -15,18 +15,19 @@ export class PopoverComponent implements OnInit {
   @HostBinding('style.left') hostStyleLeft: string;
 
   data: any;
+
   tooltipOffset: any = 10;
 
-  ngOnInit(): void {
-    this.setPosition();
-  }
 
-  private parentNode: any;
 
-  closeEventEmmit: EventEmitter<string> = new EventEmitter();
+  @Output()
+  addEvent: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  deleteEvent: EventEmitter<string> = new EventEmitter();
 
   get placement() {
-    return this.data.options.placement;
+    return this.data.placement;
   }
 
   get element() {
@@ -40,12 +41,11 @@ export class PopoverComponent implements OnInit {
   constructor(private elementRef: ElementRef) {
   }
 
-  ngAfterViewInit(): void {
-    // this.parentNode = this.element.nativeElement.parentNode;
+  ngOnInit(): void {
+    this.setPosition();
   }
 
   setPosition(): void {
-    debugger;
     const isSvg = this.element instanceof SVGElement;
     const tooltip = this.elementRef.nativeElement;
 
@@ -80,8 +80,12 @@ export class PopoverComponent implements OnInit {
     }
   }
 
-  onClickOutside(event) {
-    this.closeEventEmmit.emit('close');
+  onAddButtonClick(event) {
+
+  }
+
+  onDeleteButtonClick(event) {
+
   }
 
 

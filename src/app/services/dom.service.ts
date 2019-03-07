@@ -37,7 +37,14 @@ export class DomService {
     componentRef.destroy();
   }
 
-  appendChild(){
+  appendChild(component: any, fieldName?: string, data?: any) {
+    const componentRef: ComponentRef<any> = this.componentFactoryResolver.resolveComponentFactory(component)
+      .create(this.injector);
+
+    if (fieldName && data) {
+      componentRef.instance[fieldName] = data;
+    }
     // this.renderer.appendChild(viewContainerRef.element.nativeElement, popOver.instance.elementRef.nativeElement);
+    // this.renderer.
   }
 }

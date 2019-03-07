@@ -50,6 +50,8 @@ export class TemplateComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  mode ='hover';
+  
   click(event) {
     this.editable = true;
     this.updateEditableOnChildren();

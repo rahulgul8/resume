@@ -18,8 +18,6 @@ export class PopoverComponent implements OnInit {
 
   tooltipOffset: any = 10;
 
-
-
   @Output()
   addEvent: EventEmitter<string> = new EventEmitter();
 
@@ -81,11 +79,11 @@ export class PopoverComponent implements OnInit {
   }
 
   onAddButtonClick(event) {
-
+    this.addEvent.emit('add');
   }
 
   onDeleteButtonClick(event) {
-
+    this.deleteEvent.emit('delete');
   }
 
 

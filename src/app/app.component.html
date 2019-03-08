@@ -2,23 +2,25 @@
   <paper>
     <div>
       <div class="template">
-        <app-template [editable]="editable" autofocus>
-          <app-element placement="top" [editable]="editable" color='primary' [hideIfEmpty]="false"
-            placeholder="Hi there" heading>
-          </app-element>
-          <ul>
-            <bullet-element bulletColor="warn" color='accent' [hideIfEmpty]="true" placeholder='place'>
-            </bullet-element>
-            <bullet-element bulletColor="primary" color='warn' [hideIfEmpty]="true" placeholder='place'>
-            </bullet-element>
-            <bullet-element bulletColor="text" color='primary' [editable]="editable" [hideIfEmpty]="true"
-              placeholder='popover'>
-            </bullet-element>
-            <bullet-element bulletColor="accent" color='text' [editable]="editable" [hideIfEmpty]="true"
-              placeholder='place'>
-            </bullet-element>
-          </ul>
-        </app-template>
+        <div *ngFor="let tab of tabs;">
+          <app-template [editable]="editable" autofocus>
+            <app-element placement="top" [editable]="editable" color='primary' [hideIfEmpty]="false"
+              placeholder="Hi there" heading>
+            </app-element>
+            <ul>
+              <bullet-element bulletColor="warn" color='accent' [hideIfEmpty]="true" placeholder='place'>
+              </bullet-element>
+              <bullet-element bulletColor="primary" color='warn' [hideIfEmpty]="true" placeholder='place'>
+              </bullet-element>
+              <bullet-element bulletColor="text" color='primary' [editable]="editable" [hideIfEmpty]="true"
+                placeholder='popover'>
+              </bullet-element>
+              <bullet-element bulletColor="accent" color='text' [editable]="editable" [hideIfEmpty]="true"
+                placeholder='place'>
+              </bullet-element>
+            </ul>
+          </app-template>
+        </div>
       </div>
     </div>
     <button (click)="changeThemeTo(theme)" *ngFor="let theme of themes">{{theme.name}}</button>

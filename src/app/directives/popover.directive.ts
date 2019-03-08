@@ -60,6 +60,7 @@ export class PopoverDirective implements OnChanges {
       });
       this.popoverComp.instance.deleteEvent.subscribe(() => {
         this.addedRef.destroy();
+        this.removePopover();
       });
     });
   }

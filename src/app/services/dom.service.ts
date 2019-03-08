@@ -1,4 +1,4 @@
-import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, EmbeddedViewRef, ComponentRef, RendererFactory2 } from '@angular/core';
+import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, EmbeddedViewRef, ComponentRef, RendererFactory2, ViewContainerRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -37,14 +37,19 @@ export class DomService {
     componentRef.destroy();
   }
 
-  appendChild(component: any, fieldName?: string, data?: any) {
-    const componentRef: ComponentRef<any> = this.componentFactoryResolver.resolveComponentFactory(component)
-      .create(this.injector);
+  appendChild(parent: ViewContainerRef, component: any, fieldName?: string, data?: any) {
+    // const componentRef: ComponentRef<any> = this.componentFactoryResolver.resolveComponentFactory(component)
+    //   .create(this.injector);
 
+    // if (fieldName && data) {
+    //   componentRef.instance[fieldName] = data;
+    // }
+
+    const componentRef: ComponentRef<any> = parent.createComponent(this.componentFactoryResolver.resolveComponentFactory(component));
     if (fieldName && data) {
       componentRef.instance[fieldName] = data;
     }
-    // this.renderer.appendChild(viewContainerRef.element.nativeElement, popOver.instance.elementRef.nativeElement);
+    // this.renderer.appendChild(parent.nativeElement, component.nativeElement);
     // this.renderer.
   }
 }

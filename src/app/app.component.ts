@@ -1,8 +1,9 @@
-import { Component, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, TemplateRef, ContentChildren } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { themes } from './constants/themes';
 import { Theme } from './constants/theme';
 import { PopoverService } from './services/popover.service';
+import { TemplateComponent } from './components/template/template.component';
 
 @Component({
   selector: 'app-root',
@@ -30,15 +31,14 @@ export class AppComponent {
   }
 
 
+  tabs = [];
+
+  @ContentChildren(TemplateComponent) tab;
+
   element;
 
   showPopup() {
-    if (!this.element)
-      this.element = this.popup.show(this.container);
-    else {
-      this.popup.close(this.element);
-      this.element = undefined;
-    }
+    this.tabs.push(this.tab);
   }
 
 

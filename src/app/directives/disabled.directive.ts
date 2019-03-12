@@ -32,7 +32,6 @@ export class DisabledDirective implements OnChanges {
         @Optional() private zone: NgZone,
     ) {
         this.disabledChange = new EventEmitter<boolean>(false);
-
         if (optParent) {
             optParent.onChange(this, () => this.checkForChanges());
         }
@@ -43,6 +42,10 @@ export class DisabledDirective implements OnChanges {
         this.parent = this.elementRef.nativeElement.parentElement;
     }
 
+    ngAfterContentInit(){
+        this.disabledChange.emit(this.appDisabled);
+    }
+    
     @HostListener('focusout', ['$event'])
     focusout(event) {
         if (this.optParent == undefined && !this.parent.contains(event.relatedTarget)) {

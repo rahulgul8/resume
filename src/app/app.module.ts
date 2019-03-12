@@ -17,6 +17,7 @@ import { TemplateComponent } from './components/template/template.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { TooltipComponent } from './modules/tooltip/tooltip.component';
 import { TooltipDirective } from './modules/tooltip/tooltip.directive';
+import { DisabledDirective } from './directives/disabled.directive';
 
 @NgModule({
   declarations: [
@@ -30,8 +31,7 @@ import { TooltipDirective } from './modules/tooltip/tooltip.directive';
     PopoverDirective,
     TemplateComponent,
     PopoverComponent,
-    TooltipComponent,
-    TooltipDirective
+    DisabledDirective
   ],
   imports: [
     BrowserModule,
@@ -42,7 +42,7 @@ import { TooltipDirective } from './modules/tooltip/tooltip.directive';
 
   ],
   providers: [],
-  entryComponents: [PopoverComponent, TooltipComponent],
+  entryComponents: [PopoverComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

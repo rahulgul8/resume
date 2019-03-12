@@ -1,8 +1,11 @@
-import { Input, HostBinding } from '@angular/core';
+import { Input, HostBinding, ChangeDetectorRef } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { TemplateComponent } from './template/template.component';
+import { DisabledDirective, resolve } from '../directives/disabled.directive';
 
 export class ParentElement {
+
+    protected disabledDirective: DisabledDirective;
 
     public isHideIfEmpty: boolean = false;
 
@@ -39,7 +42,19 @@ export class ParentElement {
         return this.isHideIfEmpty;
     }
 
-    constructor(public themeService: ThemeService) {
+    constructor(public themeService: ThemeService, changeDetector: ChangeDetectorRef, optDisabled: DisabledDirective) {
+        this.disabledDirective = resolve(optDisabled);
+        this.disabledDirective.onChange(this.disabledDirective, (newValue) => {
+            changeDetector.markForCheck();
+        });
+    }
+
+    get hidden(): boolean {
+        return this.disabledDirective.disabled && this.isHideIfEmpty && !this.value;
+    }
+
+    get isEditable() {
+        return !this.disabledDirective.disabled;
     }
 
 }

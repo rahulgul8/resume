@@ -46,7 +46,6 @@ export class PopoverDirective implements OnChanges {
 
 
   addPopover() {
-    debugger;
     setTimeout(() => {
       this.popoverComp = this.dom.appendComponentToBody(PopoverComponent, 'data',
         {

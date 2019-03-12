@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener, Optional } from '@angular/core';
 import { ElementComponent } from '../element/element.component';
 import { BulletElementComponent } from '../bullet-element/bullet-element.component';
 import { Subject, Observable, pipe } from 'rxjs';
 import { ParentElement } from '../parent-element';
+import { DisabledDirective, resolve } from 'src/app/directives/disabled.directive';
 
 
 @Component({
@@ -10,70 +11,21 @@ import { ParentElement } from '../parent-element';
   templateUrl: './template.component.html',
   styleUrls: ['./template.component.scss']
 })
-export class TemplateComponent implements OnInit, AfterViewInit, OnChanges {
-  @ViewChild('container') parent: ElementRef;
+export class TemplateComponent implements OnInit {
 
-  subject: Subject<boolean> = new Subject<boolean>();
+  disabledDirective: DisabledDirective;
 
-
-  @ContentChildren(ElementComponent) elements: QueryList<ElementComponent>;
-
-  @ContentChildren(BulletElementComponent) bullets: QueryList<BulletElementComponent>;
-
-  constructor() { }
+  constructor(@Optional() optDisabled: DisabledDirective) {
+    this.disabledDirective = resolve(optDisabled);
+    this.disabledDirective.onChange(this.disabledDirective, (newValue) => {
+      this.editable = !newValue;
+    });
+  }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    this.updateEditableOnChildren();
-  }
-
-  updateEditableOnChildren() {
-    this.updateParentInputOnChildren(this.elements, 'editable', this.editable);
-    this.updateParentInputOnChildren(this.bullets, 'editable', this.editable);
-  }
-
-  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    if (changes['editable']) {
-      this.updateEditableOnChildren();
-    }
-  }
-
-  updateParentInputOnChildren(elements, paramName, value) {
-    if (elements && value != undefined) {
-      elements.forEach((element) => {
-        setTimeout(() => {
-          element[paramName] = value;
-        }, 0);
-      });
-    }
-  }
-
-  mode ='hover';
-  
-  click(event) {
-    this.editable = true;
-    this.updateEditableOnChildren();
-  }
-
   @Input()
   editable: boolean = true;
-
-
-  focusout(event) {
-    if (!this.parent.nativeElement.contains(event.relatedTarget)) {
-      this.editable = false;
-      this.updateEditableOnChildren();
-    }
-  }
-
-  // @HostListener('document:click', ['$event.target'])
-  globalClickOutListener(event) {
-    if (!this.parent.nativeElement.contains(event) && this.editable) {
-      this.editable = false;
-      this.updateEditableOnChildren();
-    }
-  }
 
 }

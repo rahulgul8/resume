@@ -8,6 +8,6 @@ export class SubHeadingDirective extends ParentDirective {
 
 
   constructor(private renderer: Renderer2, hostElement: ElementRef) {
-    super(renderer, hostElement, [''])
+    super(renderer, hostElement, ['subheading'])
   }
 }

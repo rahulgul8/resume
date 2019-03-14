@@ -18,3 +18,10 @@
     content:attr(data-placeholder);
     font-style: normal;
 }
+
+:host{
+    position: absolute;
+    z-index: 1000;
+    display: block;
+    opacity: 1;
+}

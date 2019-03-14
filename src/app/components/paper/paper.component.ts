@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'paper',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaperComponent implements OnInit {
 
-  constructor() { }
+  constructor(public viewContainer: ViewContainerRef) { }
 
   ngOnInit() {
   }

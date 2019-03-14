@@ -38,18 +38,25 @@ export class DomService {
   }
 
   appendChild(parent: ViewContainerRef, component: any, fieldName?: string, data?: any) {
-    // const componentRef: ComponentRef<any> = this.componentFactoryResolver.resolveComponentFactory(component)
-    //   .create(this.injector);
+    //create a component reference
+    const componentRef: ComponentRef<any> = this.componentFactoryResolver.resolveComponentFactory(component)
+      .create(this.injector);
 
-    // if (fieldName && data) {
-    //   componentRef.instance[fieldName] = data;
-    // }
-
-    const componentRef: ComponentRef<any> = parent.createComponent(this.componentFactoryResolver.resolveComponentFactory(component));
     if (fieldName && data) {
       componentRef.instance[fieldName] = data;
     }
-    // this.renderer.appendChild(parent.nativeElement, component.nativeElement);
-    // this.renderer.
+
+    // attach component to the appRef so that so that it will be dirty checked.
+    this.applicationRef.attachView(componentRef.hostView);
+
+    // get DOM element from component
+    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    parent.element.nativeElement.appendChild(domElem);
+    return componentRef;
+  }
+
+  appendChildHtml(parent: ViewContainerRef, component: HTMLElement, fieldName?: string, data?: any) {
+    parent.element.nativeElement.appendChild(component);
   }
 }

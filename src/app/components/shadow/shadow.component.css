@@ -1,0 +1,8 @@
+:host{
+    display: block;
+    background: pink;
+    opacity: 0;
+}
+p{
+    opacity: 0;
+}

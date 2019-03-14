@@ -1,3 +1,22 @@
-<div #container>
-  <ng-content></ng-content>
-</div>
+<paper #paper class="paper">
+  <div>
+    <div #template class="template">
+      <div appDisabled popover>
+        <app-element appFormatter placement="top" color='primary' [hideIfEmpty]="false" placeholder="Hi there" heading>
+        </app-element>
+        <ul>
+          <bullet-element appFormatter bulletColor="warn" color='accent' placeholder='place'>
+          </bullet-element>
+          <bullet-element appFormatter bulletColor="primary" color='warn' placeholder='place'>
+          </bullet-element>
+          <bullet-element appFormatter bulletColor="text" color='primary' placeholder='popover'>
+          </bullet-element>
+          <bullet-element appFormatter bulletColor="accent" color='text' placeholder='place'>
+          </bullet-element>
+        </ul>
+        <app-element appFormatter placement="top" color='primary' [hideIfEmpty]="true" placeholder="Hi there" heading>
+        </app-element>
+      </div>
+    </div>
+  </div>
+</paper>

@@ -18,6 +18,8 @@ import { PopoverComponent } from './components/popover/popover.component';
 import { TooltipComponent } from './modules/tooltip/tooltip.component';
 import { TooltipDirective } from './modules/tooltip/tooltip.directive';
 import { DisabledDirective } from './directives/disabled.directive';
+import { ShadowComponent } from './components/shadow/shadow.component';
+import { FormatterDirective } from './directives/formatter.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { DisabledDirective } from './directives/disabled.directive';
     PopoverDirective,
     TemplateComponent,
     PopoverComponent,
-    DisabledDirective
+    DisabledDirective,
+    ShadowComponent,
+    FormatterDirective
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ import { DisabledDirective } from './directives/disabled.directive';
 
   ],
   providers: [],
-  entryComponents: [PopoverComponent],
+  entryComponents: [PopoverComponent,ShadowComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

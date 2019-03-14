@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, HostBinding, ChangeDetectorRef, Optional } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, HostBinding, ChangeDetectorRef, Optional, ElementRef } from '@angular/core';
 import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { ParentElement } from '../parent-element';
 import { ThemeService } from 'src/app/services/theme.service';
@@ -16,11 +16,13 @@ export class BulletElementComponent extends ParentElement implements OnInit {
   @Input()
   bulletColor: 'warn' | 'primary' | 'accent' | 'text' = 'primary';
 
-  constructor(public themeService: ThemeService, changeDetector: ChangeDetectorRef, @Optional() optDisabled: DisabledDirective) {
-    super(themeService, changeDetector, optDisabled);
+  constructor(element: ElementRef, public themeService: ThemeService, changeDetector: ChangeDetectorRef, @Optional() optDisabled: DisabledDirective) {
+    super(element, themeService, changeDetector, optDisabled);
+    this.leftoffset = 20;
   }
 
   ngOnInit() {
+
   }
 
   @HostBinding('style.color') get textColorStyle() {

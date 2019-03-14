@@ -1,11 +1,48 @@
-import { Input, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { Input, HostBinding, ChangeDetectorRef, HostListener, ElementRef } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { TemplateComponent } from './template/template.component';
 import { DisabledDirective, resolve } from '../directives/disabled.directive';
+import { ShadowComponent } from './shadow/shadow.component';
+import { timer } from 'rxjs';
 
 export class ParentElement {
 
-    protected disabledDirective: DisabledDirective;
+    shadowComponentRef: ShadowComponent;
+
+    set shadowElement(shadow: ShadowComponent) {
+        this.shadowComponentRef = shadow;
+        this.updatePosition();
+    }
+
+    get shadowElement() {
+        return this.shadowComponentRef;
+    }
+
+    get shadow(): HTMLElement {
+        return this.shadowElement.element.nativeElement;
+    }
+
+    public leftoffset: number = 0;
+
+    public topoffset: number = 0;
+
+    private leftStyle: string = "0px";
+
+    private topStyle: string = "0px";
+
+    @HostBinding('style.left')
+    get left(): string {
+        return this.leftStyle;
+
+    }
+
+    @HostBinding('style.top')
+    get top(): string {
+        return this.topStyle;
+    }
+
+
+    public disabledDirective: DisabledDirective;
 
     public isHideIfEmpty: boolean = false;
 
@@ -42,10 +79,25 @@ export class ParentElement {
         return this.isHideIfEmpty;
     }
 
-    constructor(public themeService: ThemeService, changeDetector: ChangeDetectorRef, optDisabled: DisabledDirective) {
+    currentLeft;
+    currentTop;
+
+    constructor(public element: ElementRef, public themeService: ThemeService, changeDetector: ChangeDetectorRef, optDisabled: DisabledDirective) {
         this.disabledDirective = resolve(optDisabled);
         this.disabledDirective.onChange(this.disabledDirective, (newValue) => {
             changeDetector.markForCheck();
+            this.updatePosition();
+        });
+    }
+
+    updatePosition() {
+        setTimeout(() => {
+            if (this.shadowElement) {
+                this.leftStyle = this.leftoffset + this.shadow.getBoundingClientRect().left + "px";
+                this.topStyle = this.topoffset + this.shadow.getBoundingClientRect().top + "px";
+                this.currentLeft = this.leftoffset + this.shadow.getBoundingClientRect().left;
+                this.currentTop = this.topoffset + this.shadow.getBoundingClientRect().top;
+            }
         });
     }
 

@@ -1,27 +1,6 @@
+<button (click)="changeThemeTo(theme)" *ngFor="let theme of themes">{{theme.name}}</button>
+<button (click)="editable=!editable">Toggle edit mode</button>
+<button #dialogContainer (click)="showPopup()">popup</button>
 <router-outlet>
-  <paper>
-    <div>
-      <div class="template">
-        <div *ngFor="let tab of tabs;">
-          <app-template appDisabled>
-            <app-element placement="top" color='primary' [hideIfEmpty]="false" placeholder="Hi there" heading>
-            </app-element>
-            <ul>
-              <bullet-element bulletColor="warn" color='accent' placeholder='place'>
-              </bullet-element>
-              <bullet-element bulletColor="primary" color='warn' placeholder='place'>
-              </bullet-element>
-              <bullet-element bulletColor="text" color='primary' placeholder='popover'>
-              </bullet-element>
-              <bullet-element bulletColor="accent" color='text' placeholder='place'>
-              </bullet-element>
-            </ul>
-          </app-template>
-        </div>
-      </div>
-    </div>
-    <button (click)="changeThemeTo(theme)" *ngFor="let theme of themes">{{theme.name}}</button>
-    <button (click)="editable=!editable">Toggle edit mode</button>
-    <button #dialogContainer (click)="showPopup()">popup</button>
-  </paper>
+  <app-template></app-template>
 </router-outlet>

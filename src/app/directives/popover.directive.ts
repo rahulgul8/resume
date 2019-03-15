@@ -20,23 +20,31 @@ export class PopoverDirective implements OnChanges {
   }
 
   @Output('add')
-  addEvent: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
+  addEvent: EventEmitter<ElementRef> = new EventEmitter<any>();
+
+  @Output('selfdestroy')
+  selfDestroy: EventEmitter<ElementRef> = new EventEmitter<any>();
 
   @Output('remove')
-  removeEvent: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
+  removeEvent: EventEmitter<ElementRef> = new EventEmitter<any>();
 
   @Input()
   popoverMode: 'hover' | 'click' = 'click';
 
   popoverComp: ComponentRef<PopoverComponent>;
 
-  constructor(private container: ViewContainerRef, private dom: DomService, private element: ElementRef) { }
+  constructor(private container: ViewContainerRef, private dom: DomService, private element: ElementRef) {
+
+  }
 
   ngOnInit(): void {
   }
 
   @Input()
   popover: boolean = false;
+
+  @Input()
+  identifier: any = '';
 
   @HostListener('mouseover')
   mouseOver() {
@@ -54,44 +62,35 @@ export class PopoverDirective implements OnChanges {
       this.addPopover();
     }
     else {
-      this.removePopover();
+      setTimeout(() => {
+        this.removePopover();
+      });
+
+    }
+    if (this.popoverComp) {
+      this.popoverComp.instance.setPosition();
     }
   }
-
-  
-
-  // // @HostListener('click')
-  // focusin() {
-  //   { this.addPopover(); }
-  // }
-
-  // // @HostListener('focusout', ['$event'])
-  // focusout(event) {
-  //   if (!this.element.nativeElement.parentElement.contains(event.relatedTarget)) {
-  //     this.removePopover();
-  //   }
-  // }
 
 
   addPopover() {
     if (this.popoverComp == undefined) {
       setTimeout(() => {
-        this.popoverComp = this.dom.appendComponentToBody(PopoverComponent, 'data',
+        this.popoverComp = this.dom.appendChild(this.container, PopoverComponent, 'data',
           {
             element: this.element.nativeElement,
             placement: 'top'
           });
 
         this.popoverComp.instance.addEvent.subscribe(() => {
-          this.addEvent.emit(this.element);
+          this.addEvent.emit(this.identifier);
         });
 
 
         this.popoverComp.instance.deleteEvent.subscribe(() => {
-          this.container.clear();
-          this.container.remove();
           this.removePopover();
-          this.removeEvent.emit(this.element);
+          this.removeEvent.emit(this.identifier);
+          this.selfDestroy.emit(this.identifier);
         });
       });
     }

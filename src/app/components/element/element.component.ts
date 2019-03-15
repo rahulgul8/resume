@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, HostBinding, ElementRef, ViewChild, OnChanges, SimpleChanges, AfterViewInit, ViewChildren, ChangeDetectorRef, Optional, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, ElementRef, ViewChild, OnChanges, SimpleChanges, AfterViewInit, ViewChildren, ChangeDetectorRef, Optional, HostListener, EventEmitter, Output } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 import { ParentElement } from '../parent-element';
 import { TooltipDirective } from 'src/app/modules/tooltip/tooltip.directive';
 import { DisabledDirective, resolve } from 'src/app/directives/disabled.directive';
+
 
 @Component({
   selector: 'app-element',
@@ -11,7 +12,9 @@ import { DisabledDirective, resolve } from 'src/app/directives/disabled.directiv
 })
 export class ElementComponent extends ParentElement implements OnInit, OnChanges {
 
-  @ViewChild('divTag') divTag: ElementRef; // DOM element
+
+  @Output()
+  valueChange = new EventEmitter<string>();
 
   constructor(public element: ElementRef, public themeService: ThemeService, changeDetector: ChangeDetectorRef, @Optional() optDisabled: DisabledDirective) {
     super(element, themeService, changeDetector, optDisabled);
@@ -23,9 +26,11 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
   ngOnChanges(changes: SimpleChanges): void {
   }
 
-  click() {
-    setTimeout(_ => this.divTag.nativeElement.focus(), 0);
+  input(event) {
+    this.value = event.target.textContent
+    this.valueChange.emit(this.value);
   }
+
 
 
 

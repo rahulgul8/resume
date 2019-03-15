@@ -25,6 +25,9 @@ export class BulletElementComponent extends ParentElement implements OnInit {
 
   }
 
+  @Input()
+  bullets = [];
+
   @HostBinding('style.color') get textColorStyle() {
     return this.themeService.getColor(this.bulletColor);
   }

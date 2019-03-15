@@ -2,5 +2,24 @@
 <button (click)="editable=!editable">Toggle edit mode</button>
 <button #dialogContainer (click)="showPopup()">popup</button>
 <router-outlet>
-  <app-template></app-template>
+  <div #papers>
+    <paper #paper class="paper">
+      <app-template [template]="tmpl" [dataList]='dataList'>
+        <ng-template #tmpl let-data>
+          <div appDisabled>
+            <app-element [(value)]='data.value' [focus]='true' color='primary' [hideIfEmpty]="false"
+              placeholder="Hi there" heading>
+            </app-element>
+            <bullet-element [bullets]="data.bullets" bulletColor="warn" color='accent'>
+            </bullet-element>
+            <app-element color='primary' placeholder="Hi there">
+            </app-element>
+          </div>
+        </ng-template>
+      </app-template>
+
+
+
+    </paper>
+  </div>
 </router-outlet>

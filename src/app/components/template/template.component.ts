@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener, Optional, ViewChildren, ComponentRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener, Optional, ViewChildren, ComponentRef, ViewContainerRef, TemplateRef } from '@angular/core';
 import { ElementComponent } from '../element/element.component';
 import { BulletElementComponent } from '../bullet-element/bullet-element.component';
 import { Subject, Observable, pipe } from 'rxjs';
@@ -26,26 +26,29 @@ export class TemplateComponent implements OnInit {
     });
   }
 
-  @ViewChildren(FormatterDirective) all: QueryList<FormatterDirective>;
 
-  @ViewChild(PaperComponent)
-  paper: PaperComponent;
-
+  @Input()
+  dataList = [];
 
   ngOnInit() {
   }
 
+  @Input() template: TemplateRef<any>;
+
+  add(event) {
+    debugger;
+    this.dataList.splice(event + 1, 0, {
+      value: "value",
+      bullets: [{ value: "", placeholder: "first placeholder", hideIfEmpty: false }, { value: "", placeholder: "first placeholder", hideIfEmpty: false }]
+    });
+  }
+
+  remove(index) {
+    debugger;
+    if (!isNaN(index) && index < this.dataList.length)
+      this.dataList.splice(index, 1);
+  }
+
   @Input()
   editable: boolean = true;
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.all.forEach((element) => {
-        let shadow: ComponentRef<ShadowComponent> = this.dom.appendChild(this.paper.viewContainer, ShadowComponent, 'shadowElement', element.element.element.nativeElement);
-        element.element.shadowElement = shadow.instance;
-      });
-
-    });
-
-  }
 }

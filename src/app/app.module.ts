@@ -20,6 +20,8 @@ import { TooltipDirective } from './modules/tooltip/tooltip.directive';
 import { DisabledDirective } from './directives/disabled.directive';
 import { ShadowComponent } from './components/shadow/shadow.component';
 import { FormatterDirective } from './directives/formatter.directive';
+import { FocusDirective } from './directives/focus.directive';
+import { DestroyerDirective } from './directives/structural/destroyer.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { FormatterDirective } from './directives/formatter.directive';
     PopoverComponent,
     DisabledDirective,
     ShadowComponent,
-    FormatterDirective
+    FormatterDirective,
+    FocusDirective,
+    DestroyerDirective
   ],
   imports: [
     BrowserModule,

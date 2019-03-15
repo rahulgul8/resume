@@ -41,8 +41,8 @@ export class PopoverComponent implements OnInit {
 
   ngOnInit(): void {
     this.setPosition();
+    
   }
-
   setPosition(): void {
     const isSvg = this.element instanceof SVGElement;
     const tooltip = this.elementRef.nativeElement;

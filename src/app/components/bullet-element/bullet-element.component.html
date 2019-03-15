@@ -1,5 +1,8 @@
-<li [hidden]="element.hidden">
-  <app-element [color]="color" [borderColor]="borderColor" #element [hideIfEmpty]='true' [editable]="editable"
-    [placeholder]="placeholder">
-  </app-element>
-</li>
+<ul *ngFor="let bullet of bullets;let index =index;">
+  <li [hidden]="element.hidden">
+    <app-element #element [color]="color" [borderColor]="borderColor"
+      [hideIfEmpty]='bullets[index].hideIfEmpty!=undefined?bullets[index].hideIfEmpty:true' [editable]="editable"
+      [placeholder]="bullets[index].placeholder" [(value)]="bullets[index].value">
+    </app-element>
+  </li>
+</ul>

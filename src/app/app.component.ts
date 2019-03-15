@@ -41,35 +41,17 @@ export class AppComponent {
     this.themeService.theme = selectedTheme;
   }
 
-
-  @ViewChildren(ElementComponent) elements: QueryList<ElementComponent>;
-
-  @ViewChildren(BulletElementComponent) bullets: QueryList<BulletElementComponent>;
-
-  @ViewChildren(FormatterDirective) all: QueryList<FormatterDirective>;
-
-  tabs = [];
-
   @ViewChild('template') tab: TemplateRef<any>;
 
-  element;
+  data = {
+    value: "value",
+    bullets: [{ value: "", placeholder: "first placeholder", hideIfEmpty: false }, { value: "", placeholder: "first placeholder", hideIfEmpty: false }]
+  };
 
-  showPopup() {
-    this.tabs.push(this.tab);
-  }
+  dataList = [this.data
+    , { value: "2nd value" }];
 
-  ngAfterViewInit(): void {
-    // setTimeout(() => {
-    //   this.all.forEach((element) => {
-    //     let shadow: ComponentRef<ShadowComponent> = this.dom.appendChild(this.paper.viewContainer, ShadowComponent, 'shadowElement', element.element.element.nativeElement);
-    //     element.element.shadowElement = shadow.instance;
-    //   });
-
-    // });
-
-  }
-
-
+  bullets = [{ value: "", placeholder: "first placeholder", hideIfEmpty: false }, { value: "2nd value", placeholder: "sec placeholder" }];
 
 
 }

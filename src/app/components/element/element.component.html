@@ -1,5 +1,5 @@
 <div [hidden]="hidden" #divTag (click)="click();" [contentEditable]='isEditable' [textContent]="value"
-  (input)="value=$event.target.textContent" [attr.data-placeholder]="placeholder" [attr.data-editable]="isEditable"
+  (input)="input($event)" [attr.data-placeholder]="placeholder" [attr.data-editable]="isEditable"
   [attr.data-bordercolor]="borderColor">
-  {{value}}
+  {{value | uppercase}}
 </div>

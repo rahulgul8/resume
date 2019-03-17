@@ -7,7 +7,7 @@ import { ParentDirective } from './parent.directive';
 export class SubHeadingDirective extends ParentDirective {
 
 
-  constructor(private renderer: Renderer2, hostElement: ElementRef) {
+  constructor(public renderer: Renderer2, hostElement: ElementRef) {
     super(renderer, hostElement, ['subheading'])
   }
 }

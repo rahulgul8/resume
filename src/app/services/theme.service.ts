@@ -27,6 +27,7 @@ export class ThemeService {
       case 'primary': return this.theme.primaryColor; break;
       case 'accent': return this.theme.accentColor; break;
       case 'text': return this.theme.textColor; break;
+      case 'background': return this.theme.paperBackground; break;
       default: return this.theme.primaryColor; break;
     }
   }

@@ -22,6 +22,10 @@ import { ShadowComponent } from './components/shadow/shadow.component';
 import { FormatterDirective } from './directives/formatter.directive';
 import { FocusDirective } from './directives/focus.directive';
 import { DestroyerDirective } from './directives/structural/destroyer.directive';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { PaperstemplateComponent } from './components/paperstemplate/paperstemplate.component';
+import { ChipDirective } from './directives/chip.directive';
+import { DialogDirective } from './directives/dialog.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { DestroyerDirective } from './directives/structural/destroyer.directive'
     ShadowComponent,
     FormatterDirective,
     FocusDirective,
-    DestroyerDirective
+    DestroyerDirective,
+    DialogComponent,
+    PaperstemplateComponent,
+    ChipDirective,
+    DialogDirective
   ],
   imports: [
     BrowserModule,

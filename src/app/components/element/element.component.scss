@@ -1,27 +1,20 @@
-[data-editable=true]{
+.element[data-editable=true]{
     outline-width: 0;
     border-bottom: 1px solid;
     border-color: inherit;
     font-style: italic;
 }
 
-[data-editable=true]:empty:before{
+.element[data-editable=true]:empty:before{
     content:attr(data-placeholder);
 }
 
-[data-editable=true]:empty:focus:before{
+.element[data-editable=true]:empty:focus:before{
     content:attr(data-placeholder);
     opacity: 0.5;
 }
 
-[data-editable=false]:empty:not(:focus):before{
+.element[data-editable=false]:empty:not(:focus):before{
     content:attr(data-placeholder);
     font-style: normal;
 }
-
-// :host{
-//     position: absolute;
-//     z-index: 1000;
-//     display: block;
-//     opacity: 1;
-// }

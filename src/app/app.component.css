@@ -10,3 +10,14 @@
 .template{
     margin: 20px;
 }
+
+.bullet{
+    background: black;
+    color: blue;
+    cursor: pointer;
+    margin: 500px;
+}
+
+.bullet > div{
+    background: blue;
+}

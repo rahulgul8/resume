@@ -1,25 +1,29 @@
 <button (click)="changeThemeTo(theme)" *ngFor="let theme of themes">{{theme.name}}</button>
-<button (click)="editable=!editable">Toggle edit mode</button>
+<button (click)="printInfo()">Print</button>
+<button (click)="print()">Print</button>
 <button #dialogContainer (click)="showPopup()">popup</button>
 <router-outlet>
-  <div #papers>
-    <paper #paper class="paper">
-      <app-template [template]="tmpl" [dataList]='dataList'>
-        <ng-template #tmpl let-data>
-          <div appDisabled>
-            <app-element [(value)]='data.value' [focus]='true' color='primary' [hideIfEmpty]="false"
-              placeholder="Hi there" heading>
-            </app-element>
-            <bullet-element [bullets]="data.bullets" bulletColor="warn" color='accent'>
-            </bullet-element>
-            <app-element color='primary' placeholder="Hi there">
-            </app-element>
-          </div>
-        </ng-template>
-      </app-template>
-
-
-
-    </paper>
-  </div>
+  <paperstemplate [dataList]="[dataList]"></paperstemplate>
 </router-outlet>
+<ng-template #bullet let-data>
+  <div appDisabled>
+    <bullet-element [bullets]="data.bullets" bulletColor="warn" color='accent'>
+    </bullet-element>
+    <app-element color='primary' placeholder="Hi there">
+    </app-element>
+  </div>
+</ng-template>
+<ng-template #heading let-data>
+  <div appDisabled>
+    <app-element [chip]='true' color='primary' [placeholder]="data.placeholder" heading [hideIfEmpty]="data.hideIfEmpty"
+      [(value)]="data.value" [focus]="data.focus">
+    </app-element>
+    <bullet-element [bullets]="data.bullets" bulletColor="warn" color='accent'>
+    </bullet-element>
+  </div>
+</ng-template>
+<ng-template #dialog let-data>
+  <div appDisabled>
+    <app-dialog [data]="data"></app-dialog>
+  </div>
+</ng-template>

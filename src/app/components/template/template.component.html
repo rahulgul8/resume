@@ -1,5 +1,5 @@
-<div *ngFor="let data of dataList;let index = index;" appDisabled popover [identifier]="index"
-  (selfdestroy)="remove($event)" (add)="add($event)" class="template">
-  <ng-container *ngTemplateOutlet="template; context: { $implicit: data  }">
+<div *ngFor="let data of dataList;let index = index;" appDisabled popover (selfdestroy)="remove($event,data)"
+  (add)="add($event,data)" class="template">
+  <ng-container *ngTemplateOutlet="data.template; context: { $implicit: data  }">
   </ng-container>
 </div>

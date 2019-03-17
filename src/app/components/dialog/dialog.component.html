@@ -1,0 +1,12 @@
+<div class="parent">
+    <div class="artistcontainer">
+        <app-element class="artist" chip [(value)]="data.artist.value" [placeholder]="data.artist.placeholder"
+            [hideIfEmpty]="data.artist.hideIfEmpty">
+        </app-element>
+    </div>
+    <div class="dialogcontainer">
+        <app-element class="dialog" dialog [(value)]="data.dialog.value" [placeholder]="data.dialog.placeholder"
+            [hideIfEmpty]="data.dialog.hideIfEmpty">
+        </app-element>
+    </div>
+</div>

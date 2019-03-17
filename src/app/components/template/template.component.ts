@@ -35,16 +35,11 @@ export class TemplateComponent implements OnInit {
 
   @Input() template: TemplateRef<any>;
 
-  add(event) {
-    debugger;
-    this.dataList.splice(event + 1, 0, {
-      value: "value",
-      bullets: [{ value: "", placeholder: "first placeholder", hideIfEmpty: false }, { value: "", placeholder: "first placeholder", hideIfEmpty: false }]
-    });
+  add(event, data) {
+    this.dataList.splice(event + 1, 0, data);
   }
 
-  remove(index) {
-    debugger;
+  remove(index, data) { 
     if (!isNaN(index) && index < this.dataList.length)
       this.dataList.splice(index, 1);
   }

@@ -1,31 +1,27 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, HostListener } from '@angular/core';
-import { ParentDirective } from './parent.directive';
+import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, HostListener, OnChanges } from '@angular/core';
+
 import { ThemeService } from '../services/theme.service';
+import { ParentDirective } from './parent.directive';
+import { isBoolean } from 'util';
 
 @Directive({
   selector: '[heading]'
 })
-export class HeadingDirective extends ParentDirective {
+export class HeadingDirective extends ParentDirective implements OnInit, OnChanges {
 
-  @HostBinding('style.color') get color() {
-    return this.themeService.theme.textColor;
-  };
-
-  @HostBinding('style.backgroundColor') get bgcolor() {
-    return this.themeService.theme.paperBackground;
-  };
-
-  constructor(private renderer: Renderer2, hostElement: ElementRef, private themeService: ThemeService) {
+  constructor(public renderer: Renderer2, hostElement: ElementRef, public themeService: ThemeService) {
     super(renderer, hostElement, ['heading'])
   }
 
 
-  // @HostBinding('style.border') border: string;
-  // @HostListener('mouseover') onMouseOver() {
-  //   this.border = '5px solid green';
-  // }
 
-  // @HostListener('mouseout') onMouseExit() {
-  //   this.border = null;
-  // }
+  @Input()
+  set heading(heading: boolean) {
+    if (isBoolean(heading)) { this.isEnabled = heading; }
+  }
+
+  get heading() {
+    return this.isEnabled;
+  }
+
 }

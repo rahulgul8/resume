@@ -20,14 +20,22 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
     super(element, themeService, changeDetector, optDisabled);
   }
 
+  public classes=['element'];
+
+  // @HostBinding('class.element') someField: boolean = true;
+
   ngOnInit() {
+    this.displayValue = this.value;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
   }
 
+  displayValue;
+
   input(event) {
-    this.value = event.target.textContent
+    this.value = event.target.textContent;
     this.valueChange.emit(this.value);
   }
 

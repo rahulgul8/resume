@@ -64,6 +64,9 @@ export class ParentElement {
     borderColor: 'warn' | 'primary' | 'accent' | 'text' = 'primary';
 
     @Input()
+    backgroundColor: 'warn' | 'primary' | 'accent' | 'text' | 'background' = 'background';
+
+    @Input()
     placeholder: string;
 
     @Input()
@@ -79,6 +82,11 @@ export class ParentElement {
 
     @HostBinding('style.borderColor') get borderColorStyle() {
         return this.themeService.getColor(this.borderColor);
+    }
+
+
+    @HostBinding('style.background') get backgroundColorStyle() {
+        return this.themeService.getColor(this.backgroundColor);
     }
 
     @Input('hideIfEmpty')

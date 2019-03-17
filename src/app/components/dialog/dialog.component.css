@@ -1,0 +1,24 @@
+.artist{
+    display: inline-block;
+    background: black;
+}
+.dialog{
+    display: block;
+}
+.parent{
+    background: wheat;
+}
+
+.dialogcontainer{
+    width: 50%;
+    display: inline-block;
+   
+}
+
+.artistcontainer{
+    width: 45%;
+    text-align: right;
+    float: left;
+    margin-right: 2%;
+    margin-top: 2%;
+}

@@ -10,8 +10,6 @@ import { DomService } from './services/dom.service';
 import { ShadowComponent } from './components/shadow/shadow.component';
 import { PaperComponent } from './components/paper/paper.component';
 import { FormatterDirective } from './directives/formatter.directive';
-import * as jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -24,22 +22,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dataList;
     this.bulletTemplate;
     this.headingTemplate;
-    this.dataList[0] = {};
+    this.dataList[0] = new Object();
     this.dataList[0].value = "1st value";
     this.dataList[0].placeholder = "1st value";
     this.dataList[0].focus = true;
 
-    this.dataList[0].bullets = [];
-    this.dataList[0].bullets[0] = {};
+    this.dataList[0].bullets = new Array();
+    this.dataList[0].bullets[0] = new Object();
     this.dataList[0].bullets[0].placeholder = "bullet 1";
     this.dataList[0].bullets[0].template = this.bulletTemplate;
-    this.dataList[0].bullets[1] = {};
+    this.dataList[0].bullets[1] = new Object();
     this.dataList[0].bullets[1].placeholder = "bullet 2";
-    this.dataList[0].dialog = {};
+    this.dataList[0].dialog = new Object();
     this.dataList[0].dialog.value = "";
     this.dataList[0].dialog.placeholder = "dialog";
     this.dataList[0].dialog.hideIfEmpty = false;
-    this.dataList[0].artist = {};
+    this.dataList[0].artist = new Object();
     this.dataList[0].artist.value = "";
     this.dataList[0].artist.placeholder = "dialog";
     this.dataList[0].template = this.dialogTemplate;

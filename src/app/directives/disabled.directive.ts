@@ -18,6 +18,8 @@ import {
 })
 export class DisabledDirective implements OnChanges {
     @Output() disabledChange: EventEmitter<boolean>;
+
+    @Output() directiveFocus: EventEmitter<any> = new EventEmitter<any>();;
     @Input() appDisabled: boolean = false;
     @Input() disabledStopPropagation: boolean = false;
 
@@ -42,15 +44,17 @@ export class DisabledDirective implements OnChanges {
         this.parent = this.elementRef.nativeElement.parentElement;
     }
 
-    ngAfterContentInit(){
+    ngAfterContentInit() {
         this.disabledChange.emit(this.appDisabled);
     }
-    
+
     @HostListener('focusout', ['$event'])
     focusout(event) {
-        if (this.optParent == undefined && !this.parent.contains(event.relatedTarget)) {
+        if (this.optParent == undefined && !this.element.contains(event.relatedTarget)) {
             this.appDisabled = true;
             this.checkForChanges();
+            event.appDisabled = this.appDisabled;
+            this.directiveFocus.emit(event);
         }
     }
 
@@ -59,8 +63,21 @@ export class DisabledDirective implements OnChanges {
         if (this.optParent == undefined) {
             this.appDisabled = false;
             this.checkForChanges();
+            event.appDisabled = this.appDisabled;
         }
     }
+
+    @HostListener('focusin', ['$event'])
+    focusin(event) {
+        if (this.optParent == undefined) {
+            this.appDisabled = false;
+            this.checkForChanges();
+            event.appDisabled = this.appDisabled;
+            this.directiveFocus.emit(event);
+        }
+    }
+
+
 
 
     private checkForChanges() {

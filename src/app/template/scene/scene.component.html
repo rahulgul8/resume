@@ -1,0 +1,27 @@
+<paperstemplate [dataList]="[dataList]"></paperstemplate>
+
+<ng-template #dialog let-data>
+  <div appDisabled>
+    <app-dialog [data]="data"></app-dialog>
+  </div>
+</ng-template>
+
+<ng-template #sceneHeader let-data>
+  <button (click)="print()">print</button>
+  <div class="parent">
+    <div id="c1">
+      <chipgroup [dataList]="data.chips" [popover]="true"></chipgroup>
+    </div>
+    <div class="header" id="c2" [appDisabled]="false">
+      <app-element class="headerElement" [data]="data" heading></app-element>
+      <app-element class="headerElement" [data]="data.subtitle" [hideIfEmpty]='false'></app-element>
+    </div>
+    <div id="c3">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle color="primary" value="bold">Day</mat-button-toggle>
+        <mat-button-toggle color="primary" value="italic">Night</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</ng-template>

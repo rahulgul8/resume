@@ -1,16 +1,22 @@
-import { Input, HostBinding, ChangeDetectorRef, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Input, HostBinding, ChangeDetectorRef, HostListener, ElementRef, ViewChild, SimpleChanges, DoCheck } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { TemplateComponent } from './template/template.component';
 import { DisabledDirective, resolve } from '../directives/disabled.directive';
 import { ShadowComponent } from './shadow/shadow.component';
 import { timer } from 'rxjs';
 
-export class ParentElement {
+export class ParentElement implements DoCheck {
+
+    isClicked = false;
 
     click() {
-        setTimeout(_ => this.divTag.nativeElement.focus());
+        this.isClicked = true;
+        this.requestFocus();
     }
 
+    requestFocus() {
+        setTimeout(_ => this.divTag.nativeElement.focus());
+    }
 
     @ViewChild('divTag') divTag: ElementRef; // DOM element
 
@@ -53,28 +59,29 @@ export class ParentElement {
 
     public isHideIfEmpty: boolean = true;
 
+    @Input()
+    public data: any;
 
     @Input()
     public value: string;
 
     @Input()
+    placeholder: string;
+
+    @Input()
     focus: boolean = false;
 
     @Input()
-    borderColor: 'warn' | 'primary' | 'accent' | 'text' = 'primary';
+    borderColor: 'warn' | 'primary' | 'accent' | 'text' | 'background' = 'primary';
 
     @Input()
     backgroundColor: 'warn' | 'primary' | 'accent' | 'text' | 'background' = 'background';
 
     @Input()
-    placeholder: string;
-
-    @Input()
-    color: 'warn' | 'primary' | 'accent' | 'text' = 'text';
+    color: 'warn' | 'primary' | 'accent' | 'text' | 'background' = 'text';
 
 
-    @Input()
-    editable: boolean = true;
+    style = new Object();
 
     @HostBinding('style.color') get textColorStyle() {
         return this.themeService.getColor(this.color);
@@ -84,10 +91,14 @@ export class ParentElement {
         return this.themeService.getColor(this.borderColor);
     }
 
+    // @HostBinding('style.background') get backgroundColorStyle() {
+    //     return this.themeService.getColor(this.backgroundColor);
+    // }
 
-    @HostBinding('style.background') get backgroundColorStyle() {
-        return this.themeService.getColor(this.backgroundColor);
-    }
+
+
+    @Input()
+    editable: boolean = true;
 
     @Input('hideIfEmpty')
     set hideIfEmpty(value: boolean) {
@@ -98,8 +109,7 @@ export class ParentElement {
         return this.isHideIfEmpty;
     }
 
-    currentLeft;
-    currentTop;
+
 
     constructor(public element: ElementRef, public themeService: ThemeService, changeDetector: ChangeDetectorRef, optDisabled: DisabledDirective) {
         this.disabledDirective = resolve(optDisabled);
@@ -109,7 +119,23 @@ export class ParentElement {
             if (this.focus && this.divTag) {
                 this.click();
             }
+            if (this.isClicked) {
+                this.requestFocus();
+                this.isClicked = false;
+            }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+
+    }
+
+    ngDoCheck(): void {
+        this.style = {
+            background: this.themeService.getColor(this.backgroundColor),
+            color: this.themeService.getColor(this.color)
+        };
+
     }
 
     updatePosition() {
@@ -117,8 +143,6 @@ export class ParentElement {
             if (this.shadowElement) {
                 this.leftStyle = this.leftoffset + this.shadow.getBoundingClientRect().left + "px";
                 this.topStyle = this.topoffset + this.shadow.getBoundingClientRect().top + "px";
-                this.currentLeft = this.leftoffset + this.shadow.getBoundingClientRect().left;
-                this.currentTop = this.topoffset + this.shadow.getBoundingClientRect().top;
             }
         });
     }
@@ -129,6 +153,17 @@ export class ParentElement {
 
     get isEditable() {
         return !this.disabledDirective.disabled;
+    }
+
+
+    updateData() {
+        if (this.data) {
+            for (let field in this.data) {
+                if (this.data.hasOwnProperty(field) && this.data[field] != undefined) {
+                    this[field] = this.data[field];
+                }
+            }
+        }
     }
 
 }

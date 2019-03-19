@@ -2,6 +2,7 @@ import { Directive, Input, ElementRef, ComponentRef, HostBinding, HostListener, 
 import { DomService } from '../services/dom.service';
 import { PopoverComponent } from '../components/popover/popover.component';
 import { defaultOptions } from '../modules/tooltip/options';
+import { isBoolean } from 'util';
 
 @Directive({
   selector: '[popover]'
@@ -39,9 +40,17 @@ export class PopoverDirective implements OnChanges {
 
   ngOnInit(): void {
   }
+  @Input()
+  isPopoverEnabled = false;
 
   @Input()
-  popover: boolean = false;
+  set popover(popover: boolean) {
+
+  }
+
+  get popover(): boolean {
+    return this.isPopoverEnabled;
+  }
 
   @Input()
   identifier: any = '';
@@ -56,9 +65,11 @@ export class PopoverDirective implements OnChanges {
     if (this.popoverMode == 'hover') { this.removePopover(); }
   }
 
-  @HostListener('disabledChange', ['$event'])
+
+
+  @HostListener('directiveFocus', ['$event'])
   stateChange(event) {
-    if (!event) {
+    if (!event.appDisabled) {
       this.addPopover();
     }
     else {
@@ -74,7 +85,7 @@ export class PopoverDirective implements OnChanges {
 
 
   addPopover() {
-    if (this.popoverComp == undefined) {
+    if (this.popoverComp == undefined && this.popover) {
       setTimeout(() => {
         this.popoverComp = this.dom.appendChild(this.container, PopoverComponent, 'data',
           {

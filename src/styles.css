@@ -1,46 +1,47 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 body {
-    background: rgb(204,204,204); 
-  }
-
-.heading{
-    font: bold;
-    font-size: 2em;
+  background: rgb(204, 204, 204);
 }
 
-.subheading{
+.heading {
+  font: bold;
+  font-size: 2em;
+}
+
+.subheading {
   font: bold;
   font-size: 1em;
 }
 
-.chip[data-editable=true]{
+.chip[data-editable=true] {
   font-style: italic;
 }
 
-.chip[data-editable=true]:empty:before{
-  content:attr(data-placeholder);
+.chip[data-editable=true]:empty:before {
+  content: attr(data-placeholder);
 }
 
-.chip[data-editable=true]:empty:focus:before{
-  content:attr(data-placeholder);
+.chip[data-editable=true]:empty:focus:before {
+  content: attr(data-placeholder);
   opacity: 0.5;
 }
 
-.chip[data-editable=false]:empty:not(:focus):before{
-  content:attr(data-placeholder);
+.chip[data-editable=false]:empty:not(:focus):before {
+  content: attr(data-placeholder);
   font-style: normal;
-} 
+}
 
-.chip{
+.chip {
   outline-width: 0;
   border: 3px solid;
   border-color: inherit;
   border-radius: 5px;
   padding: 2px;
+  display: inline-block;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
-.dialog{
+.dialog {
   padding: 10px;
 }
-

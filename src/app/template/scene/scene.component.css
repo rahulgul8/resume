@@ -1,0 +1,25 @@
+.header {
+    width: 40%;
+    margin: auto;
+    display: inline-block;
+}
+
+.headerElement {
+    text-align: center;
+}
+
+#c1, #c2 {
+    width: 33%;
+    display: inline-block;
+}
+
+#c3 {
+    width: auto;
+    display: inline-block;
+    float: right;
+}
+
+.parent {
+    margin: 20px 0px;
+}
+

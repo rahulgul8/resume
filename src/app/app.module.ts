@@ -26,6 +26,9 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { PaperstemplateComponent } from './components/paperstemplate/paperstemplate.component';
 import { ChipDirective } from './directives/chip.directive';
 import { DialogDirective } from './directives/dialog.directive';
+import { ThemeDirective } from './directives/theme.directive';
+import { SceneComponent } from './template/scene/scene.component';
+import { ChipgroupComponent } from './components/chipgroup/chipgroup.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { DialogDirective } from './directives/dialog.directive';
     DialogComponent,
     PaperstemplateComponent,
     ChipDirective,
-    DialogDirective
+    DialogDirective,
+    ThemeDirective,
+    SceneComponent,
+    ChipgroupComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,6 @@ import { DialogDirective } from './directives/dialog.directive';
     BrowserAnimationsModule,
     AppMaterialsModule,
     FormsModule,
-
   ],
   providers: [],
   entryComponents: [PopoverComponent,ShadowComponent],

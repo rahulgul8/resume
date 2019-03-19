@@ -1,4 +1,4 @@
-import { Directive, Input, Renderer2, ElementRef, OnInit } from '@angular/core';
+import { Directive, Input, Renderer2, ElementRef, OnInit, HostBinding } from '@angular/core';
 import { ParentDirective } from './parent.directive';
 import { isBoolean } from 'util';
 import { ThemeService } from '../services/theme.service';
@@ -7,13 +7,15 @@ import { ElementComponent } from '../components/element/element.component';
 @Directive({
   selector: '[chip]'
 })
-export class ChipDirective implements OnInit{
+export class ChipDirective implements OnInit {
 
   ngOnInit(): void {
-    this.hostElement.classes=['chip'];
+    this.hostElement.classes = ['chip'];
   }
 
   constructor(private hostElement: ElementComponent, public themeService: ThemeService) {
+    this.hostElement.backgroundColor = this.hostElement.borderColor;
+    this.hostElement.color = "background";
   }
 
 
@@ -26,5 +28,20 @@ export class ChipDirective implements OnInit{
 
   get chip() {
     return this.isEnabled;
+  }
+
+  @HostBinding('style.display')
+  get display() {
+    return 'inline-block';
+  }
+
+  @HostBinding('style.margin')
+  get margin() {
+    return '1px';
+  }
+
+  @HostBinding('style.maxWidth')
+  get maxWidth() {
+    return '100%';
   }
 }

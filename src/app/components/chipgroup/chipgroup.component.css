@@ -1,0 +1,9 @@
+app-template {
+    display: inline-block;
+    max-width: 100%;
+   
+}
+
+:host{
+    max-width: 100%;
+}

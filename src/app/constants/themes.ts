@@ -3,8 +3,8 @@ import { Theme } from './theme';
 export const themes: Theme[] = [
     {
         name: 'Red',
-        textColor: 'black',
-        primaryColor: 'red',
+        textColor: 'blue',
+        primaryColor: 'blue',
         warnColor: 'grey',
         accentColor: 'orange',
         paperBackground: 'white',

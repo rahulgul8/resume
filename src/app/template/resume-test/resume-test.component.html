@@ -1,0 +1,24 @@
+<paperstemplate [dataList]="[dataList]"></paperstemplate>
+
+<ng-template #bullet let-data>
+  <div appDisabled>
+    <bullet-element [bullets]="data.bullets" bulletColor="warn" color='accent'>
+    </bullet-element>
+    <app-element color='primary' placeholder="Hi there">
+    </app-element>
+  </div>
+</ng-template>
+<ng-template #heading let-data>
+  <div appDisabled>
+    <app-element color='primary' [placeholder]="data.placeholder" heading [hideIfEmpty]="data.hideIfEmpty"
+      [(value)]="data.value" [focus]="data.focus">
+    </app-element>
+    <bullet-element [bullets]="data.bullets" bulletColor="warn" color='accent'>
+    </bullet-element>
+  </div>
+</ng-template>
+<ng-template #dialog let-data>
+  <div appDisabled>
+    <app-dialog [data]="data"></app-dialog>
+  </div>
+</ng-template>

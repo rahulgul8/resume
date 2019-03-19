@@ -9,9 +9,7 @@ export class SceneComponent implements OnInit {
 
   constructor() { }
 
-
   @ViewChild('sceneHeader') sceneHeader;
-
 
   @ViewChild('dialog') dialogTemplate;
 

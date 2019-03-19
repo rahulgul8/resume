@@ -36,6 +36,9 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
 
   input(event) {
     this.value = event.target.innerText;
+    // if (!this.value.trim()) {
+    //   event.target.innerHTML = '';
+    // }
     if (this.data) {
       this.data.value = this.value;
     }
@@ -43,4 +46,4 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
   }
 
 
-}
+} 

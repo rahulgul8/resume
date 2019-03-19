@@ -29,6 +29,7 @@ import { DialogDirective } from './directives/dialog.directive';
 import { ThemeDirective } from './directives/theme.directive';
 import { SceneComponent } from './template/scene/scene.component';
 import { ChipgroupComponent } from './components/chipgroup/chipgroup.component';
+import { ResumeTestComponent } from './template/resume-test/resume-test.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ChipgroupComponent } from './components/chipgroup/chipgroup.component';
     DialogDirective,
     ThemeDirective,
     SceneComponent,
-    ChipgroupComponent
+    ChipgroupComponent,
+    ResumeTestComponent
   ],
   imports: [
     BrowserModule,

@@ -2,5 +2,5 @@
 </app-template>
 <ng-template #chip let-data>
   <app-element [editable]='isEditable' [attr.data-show]='data.show' [attr.data-selected]='data.isSelected' chip
-    [data]="data" (click)="clicked($event,data)"></app-element>
+    [data]="data" [(value)]="data.value" (click)="clicked($event,data)"></app-element>
 </ng-template>

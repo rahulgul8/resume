@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { getData } from 'src/app/constants/data';
 
 @Component({
   selector: 'app-scene',
@@ -16,8 +17,10 @@ export class SceneComponent implements OnInit {
   dataList = [];
 
   ngOnInit() {
-    this.dataList.push(this.getSceneHeaderData());
-    this.dataList.push(this.getDialogData());
+    let header = this.getSceneHeaderData();
+    let dialog = this.getDialogData();
+    this.dataList.push(header);
+    this.dataList.push(dialog);
 
   }
 
@@ -26,9 +29,8 @@ export class SceneComponent implements OnInit {
     data.template = this.dialogTemplate;
     data.popover = true;
     data.focus = false;
-    data.artist = {};
     data.dialog = {};
-    data.artist.placeholder = "Artist";
+    data.artists = this.getChips('artist',3);
     data.dialog.placeholder = "Dialogue";
     return data;
   }
@@ -45,23 +47,23 @@ export class SceneComponent implements OnInit {
     data.hideIfEmpty = false;
     data.template = this.sceneHeader;
     data.popover = false;
-    data.chips = this.getChips();
+    data.chips = this.getChips('name',3);
     data.subtitle = {};
     data.subtitle.placeholder = "Scene sub title";
+    data.toggle = this.getDayNight();
     return data;
   }
 
-  getChips() {
+  getChips(placeholder,count) {
     let chips = [];
-    for (let i = 0; i < 3; i++) {
-      let chip: any = new Object();
-      chip = new Object();
-      chip.value = "";
-      chip.placeholder = "artist";
-      chip.hideIfEmpty = false;
-      chips.push(chip);
+    for (let i = 0; i < count; i++) {
+      chips.push(getData(placeholder, false));
     }
     return chips;
+  }
+
+  getDayNight() {
+    return [getData('day', false, 'Day'), getData('day', false, 'Night')];
   }
 
 }

@@ -39,9 +39,13 @@ export class TemplateComponent implements OnInit {
 
   @Input() template: TemplateRef<any>;
 
-  add(event, index, data) {
-    let cloned = this.clone(data)
-    this.dataList.splice(index + 1, 0, cloned);
+  handleEvents(event, index, data) {
+    switch (event) {
+      case 'add': let cloned = this.clone(data)
+        this.dataList.splice(index + 1, 0, cloned); break;
+      case 'delete': this.remove(event, index, data);
+    }
+
   }
 
   clone(obj) {

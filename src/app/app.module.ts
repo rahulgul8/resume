@@ -30,6 +30,7 @@ import { ThemeDirective } from './directives/theme.directive';
 import { SceneComponent } from './template/scene/scene.component';
 import { ChipgroupComponent } from './components/chipgroup/chipgroup.component';
 import { ResumeTestComponent } from './template/resume-test/resume-test.component';
+import { ChiptoggleComponent } from './components/chiptoggle/chiptoggle.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ResumeTestComponent } from './template/resume-test/resume-test.componen
     ThemeDirective,
     SceneComponent,
     ChipgroupComponent,
-    ResumeTestComponent
+    ResumeTestComponent,
+    ChiptoggleComponent
   ],
   imports: [
     BrowserModule,

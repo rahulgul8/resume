@@ -24,11 +24,6 @@ export class ChipgroupComponent implements OnInit {
   @Input()
   popover: boolean;
 
-  blur() {
-    console.log('chip group')
-    this.popover = false;
-  }
-
   constructor(@Optional() optDisabled: DisabledDirective) {
     this.disabledDirective = resolve(optDisabled);
     this.disabledDirective.onChange(this.disabledDirective, (newValue) => {

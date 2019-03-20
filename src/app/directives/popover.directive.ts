@@ -20,14 +20,8 @@ export class PopoverDirective implements OnChanges {
     }
   }
 
-  @Output('add')
-  addEvent: EventEmitter<ElementRef> = new EventEmitter<any>();
-
-  @Output('selfdestroy')
-  selfDestroy: EventEmitter<ElementRef> = new EventEmitter<any>();
-
-  @Output('remove')
-  removeEvent: EventEmitter<ElementRef> = new EventEmitter<any>();
+  @Output('pop')
+  popEvent: EventEmitter<ElementRef> = new EventEmitter<any>();
 
   @Input()
   popoverMode: 'hover' | 'click' = 'click';
@@ -71,12 +65,16 @@ export class PopoverDirective implements OnChanges {
   stateChange(event) {
     if (!event.appDisabled) {
       this.addPopover();
+      setTimeout(() => {
+        if (this.popoverComp) {
+          this.popoverComp.instance.setPosition();
+        }
+      });
     }
     else {
       setTimeout(() => {
         this.removePopover();
       });
-
     }
     if (this.popoverComp) {
       this.popoverComp.instance.setPosition();
@@ -93,16 +91,13 @@ export class PopoverDirective implements OnChanges {
             placement: 'top'
           });
 
-        this.popoverComp.instance.addEvent.subscribe(() => {
-          this.addEvent.emit(this.identifier);
+        this.popoverComp.instance.popEvent.subscribe((event) => {
+          this.popEvent.emit(event);
+          if (event == 'delete') {
+            this.removePopover();
+          }
         });
 
-
-        this.popoverComp.instance.deleteEvent.subscribe(() => {
-          this.removePopover();
-          this.removeEvent.emit(this.identifier);
-          this.selfDestroy.emit(this.identifier);
-        });
       });
     }
   }

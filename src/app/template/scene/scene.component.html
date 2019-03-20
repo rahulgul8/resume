@@ -6,7 +6,7 @@
   </div>
 </ng-template>
 
-<ng-template #sceneHeader let-data>
+<ng-template #sceneHeader attr.data-name='sceneHeader' let-data>
   <button (click)="print()">print</button>
   <div class="parent">
     <div id="c1">
@@ -17,10 +17,7 @@
       <app-element class="headerElement" [data]="data.subtitle" [hideIfEmpty]='false'></app-element>
     </div>
     <div id="c3">
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle color="primary" value="bold">Day</mat-button-toggle>
-        <mat-button-toggle color="primary" value="italic">Night</mat-button-toggle>
-      </mat-button-toggle-group>
+      <chiptoggle [dataList]="data.toggle"></chiptoggle>
     </div>
   </div>
   <mat-divider></mat-divider>

@@ -1,8 +1,11 @@
 <div>
-  <button mat-icon-button (click)="onDeleteButtonClick($event)">
+  <button mat-icon-button (click)="onClick($event,'delete')">
     <mat-icon>delete</mat-icon>
   </button>
-  <button mat-icon-button (click)="onAddButtonClick($event)">
+  <button mat-icon-button (click)="onClick($event,'add')">
     <mat-icon>add</mat-icon>
+  </button>
+  <button mat-icon-button *ngFor="let icon of icons" (click)="onClick($event,icon)">
+    <strong>{{icon}}</strong>
   </button>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, ElementRef, HostListener, EventEmitter, HostBinding } from '@angular/core';
 import { DomService } from 'src/app/services/dom.service';
 import { ComponentRef } from '@angular/core/src/render3';
+import { MatIconRegistry } from '@angular/material';
 
 
 @Component({
@@ -18,11 +19,10 @@ export class PopoverComponent implements OnInit {
 
   tooltipOffset: any = 10;
 
-  @Output()
-  addEvent: EventEmitter<string> = new EventEmitter();
+  icons = ['rahul'];
 
-  @Output()
-  deleteEvent: EventEmitter<string> = new EventEmitter();
+  @Output('pop')
+  popEvent: EventEmitter<string> = new EventEmitter();
 
   get placement() {
     return this.data.placement;
@@ -37,11 +37,12 @@ export class PopoverComponent implements OnInit {
   }
 
   constructor(private elementRef: ElementRef) {
+
   }
 
   ngOnInit(): void {
     this.setPosition();
-    
+
   }
   setPosition(): void {
     const isSvg = this.element instanceof SVGElement;
@@ -78,14 +79,9 @@ export class PopoverComponent implements OnInit {
     }
   }
 
-  onAddButtonClick(event) {
-    this.addEvent.emit('add');
+  onClick(event, eventText) {
+    this.popEvent.emit(eventText);
   }
-
-  onDeleteButtonClick(event) {
-    this.deleteEvent.emit('delete');
-  }
-
 
   @HostListener('window:resize', ['$event'])
   resize(event) {

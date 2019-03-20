@@ -25,9 +25,8 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
   // @HostBinding('class.element') someField: boolean = true;
 
   ngOnInit() {
-    this.displayValue = this.value;
     this.updateData();
-
+    this.displayValue = this.value;
   }
 
 

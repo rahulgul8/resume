@@ -1,0 +1,6 @@
+<app-template [dataList]="dataList" [template]="template" [popover]="popover" [divstyle]="{'display': 'inline-block'}">
+</app-template>
+<ng-template #chip let-data>
+  <app-element [editable]='isEditable' [attr.data-show]='data.show' [attr.data-selected]='data.isSelected' chip
+    [data]="data" (click)="clicked($event,data)"></app-element>
+</ng-template>

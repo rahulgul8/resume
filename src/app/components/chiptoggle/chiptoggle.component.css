@@ -1,0 +1,28 @@
+app-template {
+    display: inline-block;
+    max-width: 100%;
+}
+
+:host {
+    max-width: 100%;
+}
+
+app-element[data-show=false] {
+    position: absolute;
+    visibility: hidden;
+    left: -999em;
+}
+
+app-element[data-show=true] {
+    position: static;
+    visibility: visible;
+    opacity: 0.5;
+}
+
+app-element[data-selected=false] {
+    opacity: 0.5;
+}
+
+app-element[data-selected=true] {
+    opacity: 1;
+}

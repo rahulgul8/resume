@@ -1,9 +1,6 @@
 <div class="parent">
     <div class="artistcontainer">
-        <app-element chip class="artist"
-            [(value)]="data.artist.value" [placeholder]="data.artist.placeholder"
-            [hideIfEmpty]="data.artist.hideIfEmpty" [focus]="data.focus">
-        </app-element>
+        <chiptoggle [dataList]="data.artists" [multiple]="true" [editable]="false"></chiptoggle>
     </div>
     <div class="dialogcontainer">
         <div class="arrow"></div>

@@ -135,7 +135,6 @@ export class ParentElement implements DoCheck {
             background: this.themeService.getColor(this.backgroundColor),
             color: this.themeService.getColor(this.color)
         };
-
     }
 
     updatePosition() {
@@ -152,7 +151,7 @@ export class ParentElement implements DoCheck {
     }
 
     get isEditable() {
-        return !this.disabledDirective.disabled;
+        return !this.disabledDirective.disabled && this.editable;
     }
 
 

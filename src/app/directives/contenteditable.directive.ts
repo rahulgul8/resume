@@ -38,6 +38,7 @@ export class ContenteditableModel {
             value = value.replace(/^[\n\s]+/, '');
             value = value.replace(/[\n\s]+$/, '');
         }
+        // this.contenteditableModel = value;
         this.contenteditableModelChange.emit(value);
     }
 

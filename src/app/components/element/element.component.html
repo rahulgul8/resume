@@ -1,5 +1,4 @@
-<div [ngStyle]="style" [ngClass]="classes" [hidden]="hidden" #divTag (click)="click()"
-  [contentEditable]='isEditable' (input)="input($event)" [attr.data-placeholder]="placeholder"
-  [attr.data-editable]="isEditable" [attr.data-content]="value?true:false" [(ngModel)]="value"
-  [attr.data-bordercolor]="borderColor">
+<div [ngStyle]="style" [ngClass]="classes" [hidden]="hidden" #divTag (click)="click()" [contentEditable]='isEditable'
+  (input)="input($event)" [attr.data-placeholder]="placeholder" [attr.data-editable]="isEditable"
+  [attr.data-content]="value?true:false" [(contenteditableModel)]="value" [attr.data-bordercolor]="borderColor">
 </div>

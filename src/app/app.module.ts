@@ -31,6 +31,7 @@ import { SceneComponent } from './template/scene/scene.component';
 import { ChipgroupComponent } from './components/chipgroup/chipgroup.component';
 import { ResumeTestComponent } from './template/resume-test/resume-test.component';
 import { ChiptoggleComponent } from './components/chiptoggle/chiptoggle.component';
+import { ContenteditableModel } from './directives/contenteditable.directive';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ChiptoggleComponent } from './components/chiptoggle/chiptoggle.componen
     SceneComponent,
     ChipgroupComponent,
     ResumeTestComponent,
-    ChiptoggleComponent
+    ChiptoggleComponent,
+    ContenteditableModel
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,7 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
 
   ngOnInit() {
     this.updateData();
-    this.model = this.value;
+    // this.model = this.value;
   }
 
 
@@ -34,15 +34,15 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
   displayValue;
 
   input(event) {
-    console.log(event);
-    this.value = event.target.innerText;
-    // if (!this.value.trim()) {
-    //   event.target.innerHTML = '';
-    // }
+    // console.log(event);
+    // this.value = event.target.innerText;
+    // // if (!this.value.trim()) {
+    // //   event.target.innerHTML = '';
+    // // }
     if (this.data) {
-      this.data.value = this.value;
+      this.data.value = event.target.innerText;
     }
-    this.valueChange.emit(this.value);
+    this.valueChange.emit(event.target.innerText);
   }
 
 

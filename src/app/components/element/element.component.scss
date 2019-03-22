@@ -1,38 +1,47 @@
-.element[data-editable=true]{
-    outline-width: 0;
-    border-bottom: 1px solid;
-    border-color: inherit;
-    font-style: italic;
+.element[data-editable="true"] {
+  outline-width: 0;
+  border-bottom: 1px solid;
+  border-color: inherit;
+  font-style: italic;
 }
 
-.element[data-editable=true][data-content=false]:before{
-    content:attr(data-placeholder);
+:host,
+.element {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.element[data-editable=true][data-content=false]:focus:before{
-    content:attr(data-placeholder);
-    opacity: 0.5;
+.element[data-editable="true"]:empty:before {
+  content: attr(data-placeholder);
 }
 
-.element[data-editable=false][data-content=false]:not(:focus):before{
-    content:attr(data-placeholder);
-    font-style: normal;
+.element[data-editable="true"]:empty:focus:before {
+  content: attr(data-placeholder);
+  opacity: 0.5;
 }
 
+.element[data-editable="true"]:empty:before {
+  content: attr(data-placeholder);
+  opacity: 0.5;
+}
 
-    
+.element[data-editable="false"]:empty:not(:focus):before {
+  content: attr(data-placeholder);
+  font-style: normal;
+}
+
 div {
-    background-position: center;
-    transition: background 0.8s;
-  }
+  background-position: center;
+  transition: background 0.8s;
+}
 
- div :hover {
-    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
-  }
+div :hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
 
-  div:active {
-    background-color: #6eb9f7;
-    background-size: 100%;
-    transition: background 0s;
-  }
-  
+div:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}

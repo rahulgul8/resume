@@ -32,6 +32,8 @@ import { ChipgroupComponent } from './components/chipgroup/chipgroup.component';
 import { ResumeTestComponent } from './template/resume-test/resume-test.component';
 import { ChiptoggleComponent } from './components/chiptoggle/chiptoggle.component';
 import { ContenteditableModel } from './directives/contenteditable.directive';
+import { DescriptionComponent } from './components/description/description.component';
+import { ClassInjector } from './directives/classinjector.directive';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { ContenteditableModel } from './directives/contenteditable.directive';
     ChipgroupComponent,
     ResumeTestComponent,
     ChiptoggleComponent,
-    ContenteditableModel
+    ContenteditableModel,
+    DescriptionComponent,
+    ClassInjector
   ],
   imports: [
     BrowserModule,

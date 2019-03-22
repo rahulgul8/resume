@@ -14,14 +14,20 @@ export class SceneComponent implements OnInit {
 
   @ViewChild('dialog') dialogTemplate;
 
+  @ViewChild('description') descriptionTemplate;
+
   dataList = [];
 
   ngOnInit() {
     let header = this.getSceneHeaderData();
     let dialog = this.getDialogData();
     dialog.artists = header.chips;
+    dialog.artists.forEach(element => {
+      element.ignoreClone = true;
+    });
     this.dataList.push(header);
     this.dataList.push(dialog);
+    this.dataList.push(this.getDescriptionData());
 
   }
 
@@ -33,6 +39,17 @@ export class SceneComponent implements OnInit {
     data.dialog = {};
     // data.artists = this.getChips('artist', 3);
     data.dialog.placeholder = "Dialogue";
+    return data;
+  }
+
+  getDescriptionData() {
+    let data: any = new Object();
+    data.template = this.descriptionTemplate;
+    data.popover = true;
+    data.focus = false;
+    data.dialog = {};
+    // data.artists = this.getChips('artist', 3);
+    data.dialog.placeholder = "Description";
     return data;
   }
 

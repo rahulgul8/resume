@@ -6,6 +6,15 @@
   </div>
 </ng-template>
 
+<ng-template #description let-data>
+  <div appDisabled>
+    <app-description [data]="data">
+    </app-description>
+  </div>
+</ng-template>
+
+
+
 <ng-template #sceneHeader attr.data-name='sceneHeader' let-data>
   <button (click)="print()">print</button>
   <div class="parent">

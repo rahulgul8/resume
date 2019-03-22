@@ -4,7 +4,7 @@
     </div>
     <div class="dialogcontainer">
         <div class="arrow"></div>
-        <app-element [borderColor]="borderColor" [backgroundColor]="backgroundColor" class="dialog" dialog
+        <app-element [borderColor]="borderColor" [backgroundColor]="backgroundColor" class="dialog" [injectClasses]="['dialog','chip']"
             [(value)]="data.dialog.value" [placeholder]="data.dialog.placeholder"
             [hideIfEmpty]="data.dialog.hideIfEmpty" [focus]="data.focus">
         </app-element>

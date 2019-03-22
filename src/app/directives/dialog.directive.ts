@@ -13,19 +13,7 @@ export class DialogDirective {
     this.hostElement.classes.push('chip');
   }
 
-  constructor(private hostElement: ElementComponent, public themeService: ThemeService) {
-  }
-
-
-  isEnabled: boolean = true;
-
-  @Input()
-  set dialog(heading: boolean) {
-    if (isBoolean(heading)) { this.isEnabled = heading; }
-  }
-
-  get dialog() {
-    return this.isEnabled;
+  constructor(private hostElement: ElementComponent) {
   }
 
 }

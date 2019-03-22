@@ -26,3 +26,7 @@ body {
 .dialog {
   padding: 10px;
 }
+
+.description {
+  display: block;
+}

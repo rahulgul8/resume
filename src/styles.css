@@ -13,24 +13,6 @@ body {
   font-size: 1em;
 }
 
-.chip[data-editable=true] {
-  font-style: italic;
-}
-
-.chip[data-editable=true]:empty:before {
-  content: attr(data-placeholder);
-}
-
-.chip[data-editable=true]:empty:focus:before {
-  content: attr(data-placeholder);
-  opacity: 0.5;
-}
-
-.chip[data-editable=false]:empty:not(:focus):before {
-  content: attr(data-placeholder);
-  font-style: normal;
-}
-
 .chip {
   outline-width: 0;
   border: 3px solid;
@@ -38,7 +20,6 @@ body {
   border-radius: 5px;
   padding: 2px;
   display: inline-block;
-  word-wrap: break-word;
   max-width: 100%;
 }
 

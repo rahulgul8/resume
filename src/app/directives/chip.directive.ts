@@ -10,7 +10,7 @@ import { ElementComponent } from '../components/element/element.component';
 export class ChipDirective implements OnInit {
 
   ngOnInit(): void {
-    this.hostElement.classes = ['chip'];
+    this.hostElement.classes.push('chip');
   }
 
   constructor(private hostElement: ElementComponent, public themeService: ThemeService) {

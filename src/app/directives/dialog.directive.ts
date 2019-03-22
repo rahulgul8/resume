@@ -9,7 +9,8 @@ import { isBoolean } from 'util';
 export class DialogDirective {
 
   ngOnInit(): void {
-    this.hostElement.classes = ['chip','dialog'];
+    this.hostElement.classes.push('dialog');
+    this.hostElement.classes.push('chip');
   }
 
   constructor(private hostElement: ElementComponent, public themeService: ThemeService) {

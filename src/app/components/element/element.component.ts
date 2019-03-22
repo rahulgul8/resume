@@ -22,11 +22,11 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
 
   public classes = ['element'];
 
-  // @HostBinding('class.element') someField: boolean = true;
+  model;
 
   ngOnInit() {
     this.updateData();
-    this.displayValue = this.value;
+    this.model = this.value;
   }
 
 
@@ -34,6 +34,7 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
   displayValue;
 
   input(event) {
+    console.log(event);
     this.value = event.target.innerText;
     // if (!this.value.trim()) {
     //   event.target.innerHTML = '';

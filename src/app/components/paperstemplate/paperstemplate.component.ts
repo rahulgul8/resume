@@ -11,9 +11,13 @@ export class PaperstemplateComponent implements OnInit {
   @Input()
   dataList = [];
 
+  @Input()
+  templates = [];
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.dataList);
   }
 
 }

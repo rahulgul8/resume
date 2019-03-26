@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { getData } from 'src/app/constants/data';
 
 @Component({
@@ -16,24 +16,25 @@ export class SceneComponent implements OnInit {
 
   @ViewChild('description') descriptionTemplate;
 
-  dataList = [];
+  data = [];
+
+  templates = [];
 
   ngOnInit() {
+    this.templates = [{ name: 'dialog', template: this.dialogTemplate },
+    { name: 'description', template: this.descriptionTemplate },
+    { name: 'sceneHeader', template: this.sceneHeader }]
     let header = this.getSceneHeaderData();
     let dialog = this.getDialogData();
     dialog.artists = header.chips;
-    dialog.artists.forEach(element => {
-      element.ignoreClone = true;
-    });
-    this.dataList.push(header);
-    this.dataList.push(dialog);
-    this.dataList.push(this.getDescriptionData());
-
+    this.data.push(header);
+    this.data.push(dialog);
+    this.data.push(this.getDescriptionData());
   }
 
   getDialogData() {
     let data: any = new Object();
-    data.template = this.dialogTemplate;
+    data.template = 'dialog';
     data.popover = true;
     data.focus = false;
     data.dialog = {};
@@ -44,7 +45,7 @@ export class SceneComponent implements OnInit {
 
   getDescriptionData() {
     let data: any = new Object();
-    data.template = this.descriptionTemplate;
+    data.template = 'description';
     data.popover = true;
     data.focus = false;
     data.dialog = {};
@@ -53,17 +54,18 @@ export class SceneComponent implements OnInit {
     return data;
   }
 
-
   print() {
-    console.log(this.dataList);
+    this.templates.forEach((t) => console.log(t));
+    console.log(this.data);
   }
+
   getSceneHeaderData() {
     let data: any = new Object();
     data.placeholder = "Scene title";
     data.value = "Title";
     data.focus = true;
     data.hideIfEmpty = false;
-    data.template = this.sceneHeader;
+    data.template = 'sceneHeader';
     data.popover = false;
     data.chips = this.getChips('name', 3);
     data.subtitle = {};

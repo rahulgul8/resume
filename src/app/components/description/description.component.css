@@ -16,6 +16,11 @@ app-element {
   display: inline-block;
 }
 
+:host{
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
 .artistcontainer {
   width: 49%;
   text-align: right;

@@ -34,7 +34,10 @@ export class TemplateComponent implements OnInit {
 
   @Input() divstyle;
 
+  @Input() templates = [];
+
   ngOnInit() {
+    
   }
 
   @Input() template: TemplateRef<any>;
@@ -45,9 +48,12 @@ export class TemplateComponent implements OnInit {
         this.dataList.splice(index + 1, 0, cloned); break;
       case 'delete': this.remove(event, index, data);
     }
-
   }
 
+  getTemplate(name) {
+    let templ = this.templates.filter(t => t.name == name);
+    return templ[0].template;
+  }
   clone(obj) {
     var copy;
 

@@ -1,5 +1,5 @@
-<div *ngFor="let data of dataList">
+<div *ngFor="let data of dataList;let index =index">
   <paper class="paper">
-    <app-template [dataList]="data"> </app-template>
+    <app-template [dataList]="data" [templates]="templates"> </app-template>
   </paper>
 </div>

@@ -1,7 +1,9 @@
 <div [ngStyle]="divstyle" *ngFor="let data of dataList;let index = index;" [appDisabled]="true" popover
-  [isPopoverEnabled]='popover==undefined?data.popover: popover' (pop)="handleEvents($event,index,data)"
-  class="template">
-  <ng-container
-    *ngTemplateOutlet="template==undefined?getTemplate(data.template) : template; context: { $implicit: data  }">
+  [isPopoverEnabled]='popover==undefined?data.popover: popover' [popoverTemplates]="popoverTemplates"
+  (pop)="handleEvents($event,index,data)" class="template">
+  <ng-container *ngIf="!data.hide">
+    <ng-container
+      *ngTemplateOutlet="template==undefined?getTemplate(data.template) : template; context: { $implicit: data  }">
+    </ng-container>
   </ng-container>
 </div>

@@ -21,10 +21,14 @@ export class PopoverDirective implements OnChanges {
   }
 
   @Output('pop')
-  popEvent: EventEmitter<ElementRef> = new EventEmitter<any>();
+  popEvent: EventEmitter<any> = new EventEmitter<any>();
 
   @Input()
   popoverMode: 'hover' | 'click' = 'click';
+
+
+  @Input()
+  popoverTemplates = [];
 
   popoverComp: ComponentRef<PopoverComponent>;
 
@@ -88,12 +92,13 @@ export class PopoverDirective implements OnChanges {
         this.popoverComp = this.dom.appendChild(this.container, PopoverComponent, 'data',
           {
             element: this.element.nativeElement,
-            placement: 'top'
+            placement: 'top',
+            templates: this.popoverTemplates
           });
 
         this.popoverComp.instance.popEvent.subscribe((event) => {
           this.popEvent.emit(event);
-          if (event == 'delete') {
+          if (event.name == 'delete') {
             this.removePopover();
           }
         });

@@ -34,6 +34,7 @@ import { ChiptoggleComponent } from './components/chiptoggle/chiptoggle.componen
 import { ContenteditableModel } from './directives/contenteditable.directive';
 import { DescriptionComponent } from './components/description/description.component';
 import { ClassInjector } from './directives/classinjector.directive';
+import { FirstUppercasePipe } from './pipes/first-uppercase.pipe';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ClassInjector } from './directives/classinjector.directive';
     ChiptoggleComponent,
     ContenteditableModel,
     DescriptionComponent,
-    ClassInjector
+    ClassInjector,
+    FirstUppercasePipe
   ],
   imports: [
     BrowserModule,

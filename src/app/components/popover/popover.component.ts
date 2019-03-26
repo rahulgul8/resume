@@ -22,7 +22,7 @@ export class PopoverComponent implements OnInit {
   icons = ['rahul'];
 
   @Output('pop')
-  popEvent: EventEmitter<string> = new EventEmitter();
+  popEvent: EventEmitter<any> = new EventEmitter();
 
   get placement() {
     return this.data.placement;
@@ -34,6 +34,10 @@ export class PopoverComponent implements OnInit {
 
   get elementPosition() {
     return this.data.element.getBoundingClientRect();
+  }
+
+  get templates() {
+    return this.data.templates;
   }
 
   constructor(private elementRef: ElementRef) {
@@ -79,8 +83,8 @@ export class PopoverComponent implements OnInit {
     }
   }
 
-  onClick(event, eventText) {
-    this.popEvent.emit(eventText);
+  onClick(event, eventName, template?) {
+    this.popEvent.emit({ name: eventName, param: template });
   }
 
   @HostListener('window:resize', ['$event'])

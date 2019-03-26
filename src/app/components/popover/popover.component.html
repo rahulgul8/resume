@@ -2,10 +2,11 @@
   <button mat-icon-button (click)="onClick($event,'delete')">
     <mat-icon>delete</mat-icon>
   </button>
-  <button mat-icon-button (click)="onClick($event,'add')">
+  <button *ngIf="templates.length==0" mat-icon-button (click)="onClick($event,'add')">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button *ngFor="let icon of icons" (click)="onClick($event,icon)">
-    <strong>{{icon}}</strong>
+  <button class="describedButton" mat-button *ngFor="let icon of templates" (click)="onClick($event,'add',icon)">
+    <mat-icon>add</mat-icon>
+    <strong>{{icon | firstUppercase}}</strong>
   </button>
 </div>

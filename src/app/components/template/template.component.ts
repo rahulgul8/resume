@@ -8,6 +8,7 @@ import { FormatterDirective } from 'src/app/directives/formatter.directive';
 import { ShadowComponent } from '../shadow/shadow.component';
 import { PaperComponent } from '../paper/paper.component';
 import { DomService } from 'src/app/services/dom.service';
+import { clone } from 'src/app/constants/data';
 
 
 @Component({
@@ -36,70 +37,48 @@ export class TemplateComponent implements OnInit {
 
   @Input() templates = [];
 
+
+  popoverTemplates = [];
+
   ngOnInit() {
-    
+    this.popoverTemplates = this.dataList.filter(d => d.popover).map(d => d.template).filter(this.onlyUnique);
   }
 
+  onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
   @Input() template: TemplateRef<any>;
 
   handleEvents(event, index, data) {
-    switch (event) {
-      case 'add': let cloned = this.clone(data)
-        this.dataList.splice(index + 1, 0, cloned); break;
+    switch (event.name) {
+      case 'add': this.add(event, data, index); break;
       case 'delete': this.remove(event, index, data);
     }
+  }
+
+  add(event, data, index) {
+    if (event.param && this.template == undefined) {
+      data = this.dataList.filter(t => t.template == event.param).pop();
+    }
+    let cloned = clone(data);
+    cloned.hide = false;
+    this.dataList.splice(index + 1, 0, cloned);
   }
 
   getTemplate(name) {
     let templ = this.templates.filter(t => t.name == name);
     return templ[0].template;
   }
-  clone(obj) {
-    var copy;
-
-    // Handle the 3 simple types, and null or undefined
-    if (null == obj || "object" != typeof obj) return obj;
-
-    // Handle Date
-    if (obj instanceof Date) {
-      copy = new Date();
-      copy.setTime(obj.getTime());
-      return copy;
-    }
-
-    // Handle Array
-    if (obj instanceof Array) {
-      copy = [];
-      for (var i = 0, len = obj.length; i < len; i++) {
-        copy[i] = this.clone(obj[i]);
-      }
-      return copy;
-    }
-
-    if (obj instanceof TemplateRef) {
-      return obj;
-    }
-    // Handle Object
-    if (obj instanceof Object) {
-      copy = {};
-      for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
-          if (attr == 'value') {
-            copy[attr] = '';
-          } else {
-            copy[attr] = this.clone(obj[attr]);
-          }
-        }
-      }
-      return copy;
-    }
-
-    return obj;
-  }
 
   remove(event, index, data) {
-    if (!isNaN(index) && index < this.dataList.length)
-      this.dataList.splice(index, 1);
+    if (!isNaN(index) && index < this.dataList.length) {
+      // this.dataList.splice(index, 1);
+      this.dataList[index].hide = true;
+    }
+  }
+
+  getDataList() {
+    return this.dataList.filter(d => !d.hide);
   }
 
   @Input()

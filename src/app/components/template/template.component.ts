@@ -76,8 +76,12 @@ export class TemplateComponent implements OnInit {
 
   remove(event, index, data) {
     if (!isNaN(index) && index < this.dataList.length) {
-      // this.dataList.splice(index, 1);
-      this.dataList[index].hide = true;
+      if (this.dataList[index].cloned) {
+        this.dataList.splice(index, 1);
+      }
+      else {
+        this.dataList[index].hide = true;
+      }
     }
   }
 

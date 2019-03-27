@@ -13,6 +13,11 @@ export class PaperstemplateComponent implements OnInit {
   @Input()
   dataList = [];
 
+  /**
+   * List of templates that are used in this paperstemplate. 
+   * 
+   * You have to build it in the calling place.
+   */
   @Input()
   templates = [];
 
@@ -21,15 +26,32 @@ export class PaperstemplateComponent implements OnInit {
 
   constructor() { }
 
+  /**
+   * The Initial data that is provided in the template from where paperstemplate is called through code.
+   * This Initial data is added to every new paper created. Its used give the popups, the template names and the template data. 
+   * 
+   * If you don't add this initial data to the next page, it will have only the popup option with the template 
+   * of the first element, that is added to that paper. When you add this initial data, all the templates are passed to it as hidden element.
+   * 
+   * Filtered based on the cloned attribute which is set in the template element's add event. 
+   * 
+   * If an element is added by the user action(not through code) then its cloned attribute would be true. 
+   * Hence, by filtering through cloned attribute, the template data that is passed by the template component is filtered.
+   */
   ngOnInit() {
-    console.log(this.dataList);
-    this.initialData = this.dataList[0].filter(d => !d.cloned).map(d => clone(d));
-    this.initialData.forEach(d => d.hide = true);
+    if (this.initialData.length == 0) {
+      this.initialData = this.dataList[0].filter(d => !d.cloned).map(d => clone(d));
+      this.initialData.forEach(d => d.hide = true);
+    }
   }
 
   @ViewChildren(PaperComponent)
   papers: QueryList<PaperComponent>;
 
+  /**
+   * Handles the page full event triggered from the papers. 
+   * @param event contains the index of the paper, the elements that need to be moved to the next paper
+   */
   handleFull(event) {
     if (this.dataList.length > event.index + 1) {
       this.dataList[event.index + 1].unshift(...event.data);
@@ -40,6 +62,13 @@ export class PaperstemplateComponent implements OnInit {
     }
   }
 
+  /**
+   * Handles the space available event from paper. 
+   * If a paper decides that it has some space available to other components, 
+   * it notifies with an event. 
+   * 
+   * @param event contains the index of the paper and the gap that is available in the paper. 
+   */
   handleSpace(event) {
     let papersArray = this.papers.toArray();
     let nextPaperIndex = event.index + 1;

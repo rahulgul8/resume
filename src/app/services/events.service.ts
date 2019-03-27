@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as Rx from 'rxjs/Rx';
 import { from, Subject } from 'rxjs';
 
 @Injectable({

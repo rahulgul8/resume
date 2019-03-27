@@ -65,6 +65,7 @@ export class TemplateComponent implements OnInit {
     }
     let cloned = clone(data);
     cloned.hide = false;
+    cloned.cloned = true;
     this.dataList.splice(index + 1, 0, cloned);
   }
 

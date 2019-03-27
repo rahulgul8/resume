@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { PaperComponent } from '../paper/paper.component';
+import { clone } from 'src/app/constants/data';
 
 @Component({
   selector: 'paperstemplate',
@@ -15,10 +16,15 @@ export class PaperstemplateComponent implements OnInit {
   @Input()
   templates = [];
 
+  @Input()
+  initialData = [];
+
   constructor() { }
 
   ngOnInit() {
     console.log(this.dataList);
+    this.initialData = this.dataList[0].filter(d => !d.cloned).map(d => clone(d));
+    this.initialData.forEach(d => d.hide = true);
   }
 
   @ViewChildren(PaperComponent)
@@ -28,7 +34,10 @@ export class PaperstemplateComponent implements OnInit {
     if (this.dataList.length > event.index + 1) {
       this.dataList[event.index + 1].unshift(...event.data);
     }
-    else { this.dataList.push(event.data); }
+    else {
+      event.data.push(...this.initialData);
+      this.dataList.push(event.data);
+    }
   }
 
   handleSpace(event) {

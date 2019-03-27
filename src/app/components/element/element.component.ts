@@ -42,8 +42,14 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
 
 
   checkLineWrap() {
-    if (this.element.nativeElement.clientHeight != this.currentClientHeight) {
-      this.eventsService.broadcast('linewrap', this.element);
+    let event;
+    if (this.element.nativeElement.clientHeight < this.currentClientHeight) {
+      event = "decreased";
+    } else if (this.element.nativeElement.clientHeight > this.currentClientHeight) {
+      event = "increased";
+    }
+    if (event) {
+      this.eventsService.broadcast('linewrap', this.element, event);
       this.updateClientHeight();
     }
   }

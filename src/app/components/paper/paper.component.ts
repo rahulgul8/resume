@@ -80,8 +80,8 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
   lineWrapListener;
 
   ngOnInit() {
-    this.lineWrapListener = this.eventService.on('linewrap', (event) => {
-      if (this.element.nativeElement.contains(event.nativeElement)) {
+    this.lineWrapListener = this.eventService.on('linewrap', (element, event) => {
+      if (this.element.nativeElement.contains(element.nativeElement)) {
         this.checkPaperFlows()
       }
     });

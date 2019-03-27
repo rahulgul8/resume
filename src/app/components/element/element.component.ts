@@ -3,6 +3,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { ParentElement } from '../parent-element';
 import { TooltipDirective } from 'src/app/modules/tooltip/tooltip.directive';
 import { DisabledDirective, resolve } from 'src/app/directives/disabled.directive';
+import { EventsService } from 'src/app/services/events.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
   @Output()
   valueChange = new EventEmitter<string>();
 
-  constructor(public element: ElementRef, public themeService: ThemeService, changeDetector: ChangeDetectorRef, @Optional() optDisabled: DisabledDirective) {
+  constructor(public element: ElementRef, public themeService: ThemeService, changeDetector: ChangeDetectorRef, private eventsService: EventsService, @Optional() optDisabled: DisabledDirective) {
     super(element, themeService, changeDetector, optDisabled);
   }
 
@@ -24,21 +25,31 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
 
   model;
 
+  currentClientHeight = 0;
+
   ngOnInit() {
     this.updateData();
-    // this.model = this.value;
+    this.updateClientHeight();
   }
 
+
+  updateClientHeight() {
+    this.currentClientHeight = this.element.nativeElement.clientHeight;
+  }
 
 
   displayValue;
 
+
+  checkLineWrap() {
+    if (this.element.nativeElement.clientHeight != this.currentClientHeight) {
+      this.eventsService.broadcast('linewrap', this.element);
+      this.updateClientHeight();
+    }
+  }
+
   input(event) {
-    // console.log(event);
-    // this.value = event.target.innerText;
-    // // if (!this.value.trim()) {
-    // //   event.target.innerHTML = '';
-    // // }
+    this.checkLineWrap();
     if (this.data) {
       this.data.value = event.target.innerText;
     }

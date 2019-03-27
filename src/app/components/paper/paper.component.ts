@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewContainerRef, ElementRef, HostBinding, DoCheck, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ElementRef, HostBinding, DoCheck, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
   selector: 'paper',
   templateUrl: './paper.component.html',
   styleUrls: ['./paper.component.css']
 })
-export class PaperComponent implements OnInit, DoCheck {
+export class PaperComponent implements OnInit, DoCheck, OnDestroy {
+
 
 
   @Output() paperFull = new EventEmitter<any>(true);
@@ -26,21 +28,37 @@ export class PaperComponent implements OnInit, DoCheck {
   templates = [];
 
   ngDoCheck(): void {
-    if (this.isOverflown()) {
-      this.updatePaperOnOverflow(this.dataList.length - 1);
-    } else {
-      // this.updatePaperOnUnderFlow();
+  }
+
+  checkPaperFlow(event) {
+    if (this.element.nativeElement.contains(event.nativeElement)) {
+      if (this.isOverflown()) {
+        this.updatePaperOnOverflow(this.dataList.length - 1);
+      } else {
+        this.updatePaperOnUnderFlow();
+      }
     }
   }
 
   templateEvent(event) {
     if (this.isOverflown()) {
-      this.updatePaperOnOverflow(event.index);
+      this.paperFull.emit({ index: this.index, data: this.getOverFlowingElements() });
     } else {
       this.updatePaperOnUnderFlow();
     }
   }
 
+  getOverFlowingElements() {
+    let bound = this.element.nativeElement.getBoundingClientRect();
+    debugger;
+    let template = this.element.nativeElement.children.item(0);
+    let i = template.childElementCount - 1;
+    for (; i >= 0; i--) {
+      if (template.children.item(i).getBoundingClientRect().bottom < bound.bottom) {
+        return this.dataList.splice(i, this.dataList.length - i);
+      }
+    }
+  }
 
 
   updatePaperOnOverflow(index) {
@@ -56,10 +74,18 @@ export class PaperComponent implements OnInit, DoCheck {
   slicePaper(count) {
     return this.dataList.splice(0, count);
   }
-  constructor(public viewContainer: ViewContainerRef, private element: ElementRef) { }
+  constructor(private eventService: EventsService, public viewContainer: ViewContainerRef, private element: ElementRef) { }
+
+  lineWrapListener;
 
   ngOnInit() {
+    this.lineWrapListener = this.eventService.on('linewrap', (event) => this.checkPaperFlow(event));
   }
+
+  ngOnDestroy(): void {
+    this.eventService.off('linewrap', this.lineWrapListener);
+  }
+
 
   public isOverflown() {
     return this.element.nativeElement.scrollHeight > this.element.nativeElement.clientHeight;

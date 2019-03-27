@@ -1,5 +1,5 @@
 <div *ngFor="let data of dataList;let index =index">
-  <paper class="paper">
-    <app-template [dataList]="data" [templates]="templates"> </app-template>
+  <paper class="paper" [lastIndex]="dataList.length-1" [index]="index" (hasSpace)="handleSpace($event)"
+    (paperFull)="handleFull($event)" [dataList]="data" [templates]="templates">
   </paper>
 </div>

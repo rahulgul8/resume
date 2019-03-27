@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener, Optional, ViewChildren, ComponentRef, ViewContainerRef, TemplateRef, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, ContentChildren, QueryList, AfterViewInit, OnChanges, HostListener, Optional, ViewChildren, ComponentRef, ViewContainerRef, TemplateRef, HostBinding, Output, EventEmitter } from '@angular/core';
 import { ElementComponent } from '../element/element.component';
 import { BulletElementComponent } from '../bullet-element/bullet-element.component';
 import { Subject, Observable, pipe } from 'rxjs';
@@ -27,6 +27,7 @@ export class TemplateComponent implements OnInit {
     });
   }
 
+  @Output() templateEvent = new EventEmitter<any>(true);
 
   @Input()
   dataList = [];
@@ -50,10 +51,12 @@ export class TemplateComponent implements OnInit {
   @Input() template: TemplateRef<any>;
 
   handleEvents(event, index, data) {
+
     switch (event.name) {
       case 'add': this.add(event, data, index); break;
       case 'delete': this.remove(event, index, data);
     }
+    this.templateEvent.emit({ event: event, index: index, data: data });
   }
 
   add(event, data, index) {

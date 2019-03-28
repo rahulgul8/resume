@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewContainerRef, ElementRef, HostBinding, DoCheck, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ElementRef, HostBinding, DoCheck, Output, EventEmitter, Input, OnDestroy, IterableDiffers, IterableDiffer } from '@angular/core';
 import { EventsService } from 'src/app/services/events.service';
+import { TemplateEvent, LineWrapEvent, UserEvents } from 'src/app/constants/events';
 
 @Component({
   selector: 'paper',
@@ -7,8 +8,6 @@ import { EventsService } from 'src/app/services/events.service';
   styleUrls: ['./paper.component.css']
 })
 export class PaperComponent implements OnInit, DoCheck, OnDestroy {
-
-
 
   @Output() paperFull = new EventEmitter<any>(true);
 
@@ -19,27 +18,70 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() lastIndex;
 
-
-
   @Input()
   dataList = [];
 
   @Input()
   templates = [];
 
-  ngDoCheck(): void {
+  iterableDiffer: IterableDiffer<any>;
+
+  lineWrapListener;
+
+  constructor(_iterableDiffers: IterableDiffers, private eventService: EventsService, public viewContainer: ViewContainerRef, private element: ElementRef) {
+    this.iterableDiffer = _iterableDiffers.find([]).create(null);
   }
 
-  checkPaperFlows() {
-    if (this.isOverflown()) {
-      this.paperFull.emit({ index: this.index, data: this.getOverFlowingElements() });
-    } else {
-      this.updatePaperOnUnderFlow();
+  ngOnInit() {
+    this.lineWrapListener = this.eventService.on('linewrap', (event: LineWrapEvent) => {
+      if (this.element.nativeElement.contains(event.source)) {
+        this.onEvent(event.name);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.eventService.off('linewrap', this.lineWrapListener);
+  }
+
+  ngDoCheck(): void {
+    let changes = this.iterableDiffer.diff(this.dataList);
+    if (changes) {
+      let added = 0;
+      let removed = 0;
+      changes.forEachAddedItem(() => added++);
+      changes.forEachRemovedItem(() => removed++);
+
+      if (added > 0) {
+        setTimeout(() => {
+          this.onPaperOverFlow();
+        });
+      } else if (removed > 0) {
+        setTimeout(() => {
+          this.onPaperUnderFlow();
+        });
+      }
     }
   }
 
-  templateEvent(event) {
-    this.checkPaperFlows();
+
+  onPaperOverFlow() {
+    if (this.isOverflown()) {
+      this.paperFull.emit({ index: this.index, data: this.getOverFlowingElements() });
+    }
+  }
+
+
+  onEvent(eventName: UserEvents) {
+    switch (eventName) {
+      case UserEvents.add: this.onPaperOverFlow(); break;
+      case UserEvents.delete: this.onPaperUnderFlow(); break;
+    }
+  }
+
+
+  templateEvent(event: TemplateEvent) {
+    // this.onEvent(event.popevent.name);
   }
 
   getOverFlowingElements() {
@@ -49,10 +91,8 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
     let result = [];
     for (; i >= 0; i--) {
       let childRect = template.children.item(i).getBoundingClientRect();
-      if (childRect.bottom > bound.bottom) {
-        result.push(...this.dataList.splice(i, 1));
-      } else {
-        return result;
+      if (childRect.bottom < bound.bottom) {
+        return this.dataList.splice(i + 1, this.dataList.length - i);
       }
     }
   }
@@ -63,9 +103,9 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
    * and if its not the last paper, then emits the hasSpace event
    * which can be processed by the Paperstemplate component. 
    */
-  updatePaperOnUnderFlow() {
-    let gap = this.getEmptySpace(this.element.nativeElement, this.element.nativeElement.children.item(0));
-    if (this.index != this.lastIndex) { this.hasSpace.emit({ index: this.index, gap: gap }); }
+  onPaperUnderFlow() {
+    let gap = this.getEmptySpace();
+    if (gap > 60) { this.hasSpace.emit({ index: this.index, gap: gap }); }
   }
 
   /**
@@ -75,21 +115,7 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
   slicePaper(count) {
     return this.dataList.splice(0, count);
   }
-  constructor(private eventService: EventsService, public viewContainer: ViewContainerRef, private element: ElementRef) { }
 
-  lineWrapListener;
-
-  ngOnInit() {
-    this.lineWrapListener = this.eventService.on('linewrap', (element, event) => {
-      if (this.element.nativeElement.contains(element.nativeElement)) {
-        this.checkPaperFlows()
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.eventService.off('linewrap', this.lineWrapListener);
-  }
 
   /**
    * Returns if this element is overflowing.
@@ -133,7 +159,9 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
    * @param paper current paper
    * @param template the @type TemplateComponent in this paper. 
    */
-  public getEmptySpace(paper: HTMLElement, template: HTMLElement) {
+  public getEmptySpace() {
+    let paper = this.element.nativeElement;
+    let template = this.element.nativeElement.children.item(0)
     let childrenTotalHeight = 0;
     for (let i = 0; i < template.childElementCount; i++) {
       childrenTotalHeight = childrenTotalHeight + template.children.item(i).clientHeight;

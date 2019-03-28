@@ -2,6 +2,7 @@ import { Component, OnInit, Output, ElementRef, HostListener, EventEmitter, Host
 import { DomService } from 'src/app/services/dom.service';
 import { ComponentRef } from '@angular/core/src/render3';
 import { MatIconRegistry } from '@angular/material';
+import { PopoverEvent } from 'src/app/constants/events';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class PopoverComponent implements OnInit {
   icons = ['rahul'];
 
   @Output('pop')
-  popEvent: EventEmitter<any> = new EventEmitter();
+  popEvent: EventEmitter<PopoverEvent> = new EventEmitter<PopoverEvent>();
 
   get placement() {
     return this.data.placement;
@@ -84,7 +85,7 @@ export class PopoverComponent implements OnInit {
   }
 
   onClick(event, eventName, template?) {
-    this.popEvent.emit({ name: eventName, param: template });
+    this.popEvent.emit(new PopoverEvent(eventName, template));
   }
 
   @HostListener('window:resize', ['$event'])

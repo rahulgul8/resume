@@ -53,12 +53,14 @@ export class PaperstemplateComponent implements OnInit {
    * @param event contains the index of the paper, the elements that need to be moved to the next paper
    */
   handleFull(event) {
-    if (this.dataList.length > event.index + 1) {
-      this.dataList[event.index + 1].unshift(...event.data);
-    }
-    else {
-      event.data.push(...this.initialData);
-      this.dataList.push(event.data);
+    if (event.data && event.data.length > 0) {
+      if (this.dataList.length > event.index + 1) {
+        this.dataList[event.index + 1].unshift(...event.data);
+      }
+      else {
+        event.data.push(...this.initialData);
+        this.dataList.push(event.data);
+      }
     }
   }
 
@@ -71,13 +73,16 @@ export class PaperstemplateComponent implements OnInit {
    */
   handleSpace(event) {
     let papersArray = this.papers.toArray();
-    let nextPaperIndex = event.index + 1;
-    let nextPaper = papersArray[nextPaperIndex];
-    console.log(event);
-    let elementsFromBelowPage: Array<any> = nextPaper.getElementsForSpace(event.gap);
-    this.dataList[event.index].push(...elementsFromBelowPage);
-    if (nextPaper.dataList.length == 0) {
-      this.dataList.splice(nextPaperIndex, 1);
+    let prevPaperIndex = event.index == 0 ? event.index : event.index - 1;
+
+    for (let currentPaperIndex = prevPaperIndex; currentPaperIndex < this.dataList.length - 1; currentPaperIndex++) {
+      let currentPaper = papersArray[currentPaperIndex];
+      let nextPaper = papersArray[currentPaperIndex + 1];
+      let elementsFromBelowPage: Array<any> = nextPaper.getElementsForSpace(currentPaper.getEmptySpace());
+      this.dataList[currentPaperIndex].push(...elementsFromBelowPage);
+      if (nextPaper.dataList.length == 0) {
+        this.dataList.splice(currentPaperIndex + 1, 1);
+      }
     }
   }
 }

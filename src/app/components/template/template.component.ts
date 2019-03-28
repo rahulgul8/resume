@@ -9,6 +9,7 @@ import { ShadowComponent } from '../shadow/shadow.component';
 import { PaperComponent } from '../paper/paper.component';
 import { DomService } from 'src/app/services/dom.service';
 import { clone } from 'src/app/constants/data';
+import { TemplateEvent, PopoverEvent, UserEvents } from 'src/app/constants/events';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class TemplateComponent implements OnInit {
     });
   }
 
-  @Output() templateEvent = new EventEmitter<any>(true);
+  @Output() templateEvent: EventEmitter<TemplateEvent> = new EventEmitter<TemplateEvent>(true);
 
   @Input()
   dataList = [];
@@ -50,13 +51,13 @@ export class TemplateComponent implements OnInit {
   }
   @Input() template: TemplateRef<any>;
 
-  handleEvents(event, index, data) {
+  handleEvents(event: PopoverEvent, index, data) {
 
     switch (event.name) {
-      case 'add': this.add(event, data, index); break;
-      case 'delete': this.remove(event, index, data);
+      case UserEvents.add: this.add(event, data, index); break;
+      case UserEvents.delete: this.remove(event, index, data);
     }
-    this.templateEvent.emit({ event: event, index: index, data: data });
+    this.templateEvent.emit(new TemplateEvent(event, index, data));
   }
 
   add(event, data, index) {

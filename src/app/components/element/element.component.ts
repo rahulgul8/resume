@@ -4,6 +4,7 @@ import { ParentElement } from '../parent-element';
 import { TooltipDirective } from 'src/app/modules/tooltip/tooltip.directive';
 import { DisabledDirective, resolve } from 'src/app/directives/disabled.directive';
 import { EventsService } from 'src/app/services/events.service';
+import { LineWrapEvent, UserEvents } from 'src/app/constants/events';
 
 
 @Component({
@@ -42,14 +43,14 @@ export class ElementComponent extends ParentElement implements OnInit, OnChanges
 
 
   checkLineWrap() {
-    let event;
+    let event: UserEvents;
     if (this.element.nativeElement.clientHeight < this.currentClientHeight) {
-      event = "decreased";
+      event = UserEvents.delete;
     } else if (this.element.nativeElement.clientHeight > this.currentClientHeight) {
-      event = "increased";
+      event = UserEvents.add;
     }
     if (event) {
-      this.eventsService.broadcast('linewrap', this.element, event);
+      this.eventsService.broadcast('linewrap', new LineWrapEvent(event, this.element.nativeElement));
       this.updateClientHeight();
     }
   }

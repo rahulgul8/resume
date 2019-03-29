@@ -1,18 +1,35 @@
-:host  {
-    background: white;
-    width: 21cm;
-    height: 29.7cm;
-    overflow: auto;
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 0.5cm;
-    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-    padding: 20px;
-    overflow: hidden;
+:host {
+  background: white;
+  width: 21cm;
+  overflow: auto;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  overflow: hidden;
+}
+@media print {
+  body,
+  page[size="A4"] {
+    margin: 0;
+    box-shadow: 0;
   }
-  @media print {
-    body, page[size="A4"] {
-      margin: 0;
-      box-shadow: 0;
-    }
-  }
+}
+
+.paper:host {
+  height: 29.7cm;
+}
+
+.longPaper:host {
+  min-height: 29.7cm;
+}
+
+.repeat {
+  min-height: 29.7cm;
+  margin-top: 29cm;
+  top: 10cm;
+  z-index: 1000;
+  right: 0;
+  background: url(http://lorempixel.com/400/200) repeat-y;
+}

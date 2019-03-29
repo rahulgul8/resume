@@ -35,6 +35,8 @@ import { ContenteditableModel } from './directives/contenteditable.directive';
 import { DescriptionComponent } from './components/description/description.component';
 import { ClassInjector } from './directives/classinjector.directive';
 import { FirstUppercasePipe } from './pipes/first-uppercase.pipe';
+import { PagenumberComponent } from './components/pagenumber/pagenumber.component';
+import { FooterDirective } from './directives/footer.directive';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { FirstUppercasePipe } from './pipes/first-uppercase.pipe';
     ContenteditableModel,
     DescriptionComponent,
     ClassInjector,
-    FirstUppercasePipe
+    FirstUppercasePipe,
+    PagenumberComponent,
+    FooterDirective
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,7 @@ import { FirstUppercasePipe } from './pipes/first-uppercase.pipe';
     FormsModule,
   ],
   providers: [],
-  entryComponents: [PopoverComponent,ShadowComponent],
+  entryComponents: [PopoverComponent,ShadowComponent,PagenumberComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

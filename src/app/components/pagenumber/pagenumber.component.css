@@ -1,0 +1,28 @@
+:host {
+  position: absolute;
+  color: white;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+div {
+  background: rgb(54, 54, 54);
+  color: inherit;
+  padding: 5px;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+:host::before {
+  content: "";
+  position: absolute;
+  /* margin: 50px auto; */
+  margin-left: -15px;
+  margin-top: 9px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-right: 10px solid rgb(54, 54, 54);
+  border-bottom: 5px solid transparent;
+}

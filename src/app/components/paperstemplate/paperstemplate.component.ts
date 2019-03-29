@@ -24,6 +24,9 @@ export class PaperstemplateComponent implements OnInit {
   @Input()
   initialData = [];
 
+  @Input()
+  useLongPaper: boolean = false;
+
   constructor() { }
 
   /**

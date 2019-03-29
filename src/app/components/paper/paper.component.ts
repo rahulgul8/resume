@@ -13,7 +13,6 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
 
   @Output() hasSpace = new EventEmitter<any>(true);
 
-
   @Input() index;
 
   @Input() lastIndex;
@@ -27,6 +26,9 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
   iterableDiffer: IterableDiffer<any>;
 
   lineWrapListener;
+
+  @Input()
+  useLongPaper = false;
 
   constructor(_iterableDiffers: IterableDiffers, private eventService: EventsService, public viewContainer: ViewContainerRef, private element: ElementRef) {
     this.iterableDiffer = _iterableDiffers.find([]).create(null);
@@ -62,6 +64,14 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
         });
       }
     }
+  }
+
+  @HostBinding('class.paper') get paperClass() {
+    return !this.useLongPaper;
+  }
+
+  @HostBinding('class.longPaper') get longPaperClass() {
+    return this.useLongPaper;
   }
 
 
@@ -130,6 +140,7 @@ export class PaperComponent implements OnInit, DoCheck, OnDestroy {
   public getHeightGap() {
     return this.element.nativeElement.scrollHeight - this.element.nativeElement.clientHeight;
   }
+
 
   /**
    * For the given space, finds how many elements in this paper can be accomodated, 

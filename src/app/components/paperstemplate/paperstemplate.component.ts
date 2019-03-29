@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { PaperComponent } from '../paper/paper.component';
-import { clone } from 'src/app/constants/data';
+import { clone, cloneForTemplating, cloneArrayForTemplating } from 'src/app/constants/data';
 
 @Component({
   selector: 'paperstemplate',
@@ -27,6 +27,9 @@ export class PaperstemplateComponent implements OnInit {
   initialData = [];
 
   @Input()
+  tools = [];
+
+  @Input()
   useLongPaper: boolean = false;
 
   constructor() { }
@@ -48,6 +51,8 @@ export class PaperstemplateComponent implements OnInit {
       this.initialData = this.dataList[0].filter(d => !d.cloned).map(d => clone(d));
       this.initialData.forEach(d => d.hide = true);
     }
+    this.tools.push({ icon: 'note_add', action: 'addPaper' });
+    this.tools.push({ icon: 'delete', action: 'deletePaper' });
   }
 
   @ViewChildren(PaperComponent)
@@ -92,13 +97,35 @@ export class PaperstemplateComponent implements OnInit {
   }
 
 
-  addTemplateToEnd(template) {
-    let data = this.dataList[this.dataList.length - 1];
-    if (data && data.length) {
-      data.push(...this.initialData.filter(d => d.template == template).map(d => {
-        d.hide = false;
-        return d;
-      }));
+  addTemplateToEnd(event, index) {
+    switch (event.action) {
+      case 'addPaper': this.addNewPaper(event, index); break;
+      case 'deletePaper': this.deletePaper(event, index); break;
+      default:
+        let data = this.dataList[index];
+        if (data && data.length) {
+          data.push(...this.initialData.filter(d => d.template == event.action).map(d => cloneForTemplating(d)));
+        }; break;
     }
+  }
+
+  deletePaper(event, index) {
+    this.dataList.splice(index, 1);
+  }
+
+  addNewPaper(event, index) {
+    if (event.data) {
+      this.dataList.push(event.data.map(d => cloneForTemplating(d)));
+    } else {
+      this.dataList.push(this.initialData.map(d => cloneForTemplating(d)));
+    }
+  }
+
+
+  getTools(index) {
+    if (index == 0) {
+      return this.tools.filter(t => t.icon != 'delete')
+    }
+    return this.tools;
   }
 }

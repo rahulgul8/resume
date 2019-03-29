@@ -8,7 +8,7 @@ import { FormatterDirective } from 'src/app/directives/formatter.directive';
 import { ShadowComponent } from '../shadow/shadow.component';
 import { PaperComponent } from '../paper/paper.component';
 import { DomService } from 'src/app/services/dom.service';
-import { clone } from 'src/app/constants/data';
+import { clone, cloneForTemplating } from 'src/app/constants/data';
 import { TemplateEvent, PopoverEvent, UserEvents } from 'src/app/constants/events';
 
 
@@ -64,11 +64,11 @@ export class TemplateComponent implements OnInit {
     if (event.param && this.template == undefined) {
       data = this.dataList.filter(t => t.template == event.param).pop();
     }
-    let cloned = clone(data);
-    cloned.hide = false;
-    cloned.cloned = true;
-    this.dataList.splice(index + 1, 0, cloned);
+    this.dataList.splice(index + 1, 0, cloneForTemplating(data));
   }
+
+
+
 
   getTemplate(name) {
     let templ = this.templates.filter(t => t.name == name);

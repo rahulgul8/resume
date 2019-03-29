@@ -37,6 +37,7 @@ import { ClassInjector } from './directives/classinjector.directive';
 import { FirstUppercasePipe } from './pipes/first-uppercase.pipe';
 import { PagenumberComponent } from './components/pagenumber/pagenumber.component';
 import { FooterDirective } from './directives/footer.directive';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { FooterDirective } from './directives/footer.directive';
     ClassInjector,
     FirstUppercasePipe,
     PagenumberComponent,
-    FooterDirective
+    FooterDirective,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

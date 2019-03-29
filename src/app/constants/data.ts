@@ -22,9 +22,12 @@ export function getDataWithTemplate(placeholder: string, element: any, templateN
 }
 
 
-export function clone(obj) {
+export function clone(obj: any) {
     var copy;
 
+    if (obj.skipClone) {
+        return obj;
+    }
     // Handle the 3 simple types, and null or undefined
     if (null == obj || "object" != typeof obj) return obj;
 
@@ -41,6 +44,7 @@ export function clone(obj) {
         for (var i = 0, len = obj.length; i < len; i++) {
             copy[i] = clone(obj[i]);
         }
+        copyObject(obj, copy);
         return copy;
     }
 
@@ -50,17 +54,32 @@ export function clone(obj) {
     // Handle Object
     if (obj instanceof Object) {
         copy = {};
-        for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) {
-                if (attr == 'value') {
-                    copy[attr] = '';
-                } else {
-                    copy[attr] = clone(obj[attr]);
-                }
-            }
-        }
+        copyObject(obj, copy);
         return copy;
     }
 
     return obj;
+}
+
+export function cloneForTemplating(data) {
+    let cloned = clone(data);
+    cloned.hide = false;
+    cloned.cloned = true;
+    return cloned;
+}
+
+export function cloneArrayForTemplating(...datas) {
+    return datas.map(d => cloneForTemplating(d))
+}
+
+function copyObject(obj, copy) {
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+            if (!obj.copyValue && attr == 'value') {
+                copy[attr] = '';
+            } else {
+                copy[attr] = clone(obj[attr]);
+            }
+        }
+    }
 }

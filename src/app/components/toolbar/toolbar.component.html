@@ -1,0 +1,9 @@
+<div *ngIf="tools.length>0">
+  <ng-container *ngFor="let tool of tools">
+
+    <button [disabled]="tool.disabled" mat-icon-button (click)="toolClick.emit({action: tool.action,data: tool.data})">
+      <mat-icon [attr.data-disabled]="tool.disabled" class="icon">{{tool.icon}}</mat-icon>
+    </button>
+    <mat-divider></mat-divider>
+  </ng-container>
+</div>

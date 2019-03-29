@@ -1,11 +1,13 @@
 <div class="parent">
     <div class="artistcontainer">
-        <chiptoggle [dataList]="data.artists" [multiple]="true" [editable]="false"></chiptoggle>
+        <chiptoggle [dataList]="data.artists" [multiple]="true"
+            [editable]="data.artists.editable==undefined?false:data.artists.editable">
+        </chiptoggle>
     </div>
     <div class="dialogcontainer">
         <div class="arrow"></div>
-        <app-element [borderColor]="borderColor" [backgroundColor]="backgroundColor" class="dialog" [injectClasses]="['dialog','chip']"
-            [(value)]="data.dialog.value" [placeholder]="data.dialog.placeholder"
+        <app-element [borderColor]="borderColor" [backgroundColor]="backgroundColor" class="dialog"
+            [injectClasses]="['dialog','chip']" [(value)]="data.dialog.value" [placeholder]="data.dialog.placeholder"
             [hideIfEmpty]="data.dialog.hideIfEmpty" [focus]="data.focus">
         </app-element>
     </div>

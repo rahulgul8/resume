@@ -16,7 +16,6 @@ div {
 :host::before {
   content: "";
   position: absolute;
-  /* margin: 50px auto; */
   margin-left: -15px;
   margin-top: 9px;
   width: 0;

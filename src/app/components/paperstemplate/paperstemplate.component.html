@@ -1,4 +1,5 @@
-<div *ngFor="let data of dataList;let index =index">
+<div class="paperTemplate" *ngFor="let data of dataList;let index =index">
+  <app-toolbar class="toolbar" [tools]="getTools(index)" (toolClick)="addTemplateToEnd($event,index)"></app-toolbar>
   <paper [appFooter]="useLongPaper" [offset]='paperHeight' class="paper" [lastIndex]="dataList.length-1" [index]="index"
     [useLongPaper]="useLongPaper" (hasSpace)="handleSpace($event)" (paperFull)="handleFull($event)" [dataList]="data"
     [templates]="templates">

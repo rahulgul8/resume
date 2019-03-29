@@ -1,11 +1,12 @@
-import { Directive, ViewContainerRef, ElementRef, DoCheck, Input, ComponentRef } from '@angular/core';
+import { Directive, ViewContainerRef, ElementRef, DoCheck, Input, ComponentRef, OnDestroy } from '@angular/core';
 import { DomService } from '../services/dom.service';
 import { PagenumberComponent } from '../components/pagenumber/pagenumber.component';
 
 @Directive({
   selector: '[appFooter]'
 })
-export class FooterDirective implements DoCheck {
+export class FooterDirective implements DoCheck, OnDestroy {
+
 
   value;
 
@@ -62,5 +63,8 @@ export class FooterDirective implements DoCheck {
 
   constructor(private container: ViewContainerRef, private dom: DomService, private element: ElementRef) { }
 
+  ngOnDestroy(): void {
+    this.comp.forEach(c => c.destroy());
+  }
 
 }

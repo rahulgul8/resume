@@ -1,0 +1,14 @@
+div {
+  background: black;
+  color: white;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 10px;
+}
+.mat-divider {
+  border-top-color: white;
+}
+
+.icon[data-disabled="true"] {
+  color: grey;
+}

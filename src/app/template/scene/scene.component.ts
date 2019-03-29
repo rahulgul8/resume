@@ -20,6 +20,9 @@ export class SceneComponent implements OnInit {
 
   templates = [];
 
+  tools = [{ icon: 'description', action: 'description' },
+  { icon: 'record_voice_over', action: 'dialog' }]
+
   ngOnInit() {
     this.templates = [{ name: 'dialog', template: this.dialogTemplate },
     { name: 'description', template: this.descriptionTemplate },
@@ -27,6 +30,8 @@ export class SceneComponent implements OnInit {
     let header = this.getSceneHeaderData();
     let dialog = this.getDialogData();
     dialog.artists = header.chips;
+    dialog.artists.editable = true;
+    dialog.artists.copyValue = true;
     this.data.push(header);
     this.data.push(dialog);
     this.data.push(this.getDescriptionData());
@@ -68,6 +73,7 @@ export class SceneComponent implements OnInit {
     data.template = 'sceneHeader';
     data.popover = false;
     data.chips = this.getChips('name', 3);
+    data.chips.editable = true;
     data.subtitle = {};
     data.subtitle.placeholder = "Scene sub title";
     data.toggle = this.getDayNight();
@@ -77,7 +83,9 @@ export class SceneComponent implements OnInit {
   getChips(placeholder, count) {
     let chips = [];
     for (let i = 0; i < count; i++) {
-      chips.push(getData(placeholder, false, 'Chip'));
+      let chip = getData(placeholder, false, 'Chip');
+      chip.copyValue = true;
+      chips.push(chip);
     }
     return chips;
   }

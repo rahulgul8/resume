@@ -9,6 +9,10 @@ export class FooterDirective implements DoCheck {
 
   value;
 
+
+  @Input()
+  offset = 0;
+
   @Input()
   set appFooter(value: number) {
     // this.value = this.convertor(value);
@@ -23,8 +27,14 @@ export class FooterDirective implements DoCheck {
   comp: Array<ComponentRef<PagenumberComponent>> = [];
 
   ngDoCheck(): void {
+    if (this.value) {
+      this.doCheck();
+    }
+  }
+
+  doCheck() {
     let currentHeight = this.element.nativeElement.clientHeight;
-    let number = Math.ceil(currentHeight / this.appFooter);
+    let number = Math.ceil(currentHeight / this.offset);
     if (this.lastPage < number) {
       let i = this.lastPage;
       this.lastPage = number;
@@ -32,7 +42,7 @@ export class FooterDirective implements DoCheck {
         for (; i < number; i++) {
           this.comp.push(this.dom.appendComponentToBody(PagenumberComponent, 'data', {
             pagenumber: i,
-            offset: this.value,
+            offset: this.offset,
             element: this.element.nativeElement
           }));
         }
@@ -45,7 +55,6 @@ export class FooterDirective implements DoCheck {
       this.lastPage = number;
     }
   }
-
 
   convertor(value) {
     return value * 37.79527559055118;

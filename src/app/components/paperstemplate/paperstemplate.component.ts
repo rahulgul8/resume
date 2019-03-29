@@ -13,6 +13,8 @@ export class PaperstemplateComponent implements OnInit {
   @Input()
   dataList = [];
 
+  paperHeight = 1163;
+
   /**
    * List of templates that are used in this paperstemplate. 
    * 
@@ -86,6 +88,17 @@ export class PaperstemplateComponent implements OnInit {
       if (nextPaper.dataList.length == 0) {
         this.dataList.splice(currentPaperIndex + 1, 1);
       }
+    }
+  }
+
+
+  addTemplateToEnd(template) {
+    let data = this.dataList[this.dataList.length - 1];
+    if (data && data.length) {
+      data.push(...this.initialData.filter(d => d.template == template).map(d => {
+        d.hide = false;
+        return d;
+      }));
     }
   }
 }

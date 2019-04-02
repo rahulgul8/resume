@@ -3,6 +3,13 @@ body {
   background: rgb(204, 204, 204);
 }
 
+@media print { 
+  
+  * {
+   -webkit-print-color-adjust: exact;
+}
+
+}
 .heading {
   font: bold;
   font-size: 2em;

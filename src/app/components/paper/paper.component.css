@@ -9,13 +9,6 @@
   padding: 20px;
   overflow: hidden;
 }
-@media print {
-  body,
-  page[size="A4"] {
-    margin: 0;
-    box-shadow: 0;
-  }
-}
 
 .paper:host {
   height: 29.7cm;

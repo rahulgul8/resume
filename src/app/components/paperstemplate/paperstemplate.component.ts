@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 import { PaperComponent } from '../paper/paper.component';
 import { clone, cloneForTemplating, cloneArrayForTemplating } from 'src/app/constants/data';
+import { DomService } from 'src/app/services/dom.service';
 
 @Component({
   selector: 'paperstemplate',
@@ -32,7 +33,7 @@ export class PaperstemplateComponent implements OnInit {
   @Input()
   useLongPaper: boolean = false;
 
-  constructor() { }
+  constructor(private dom: DomService, private element: ElementRef) { }
 
   /**
    * The Initial data that is provided in the template from where paperstemplate is called through code.
@@ -121,11 +122,16 @@ export class PaperstemplateComponent implements OnInit {
     }
   }
 
+  @ViewChild(PaperComponent) paper: PaperComponent;
 
   getTools(index) {
     if (index == 0) {
       return this.tools.filter(t => t.icon != 'delete')
     }
     return this.tools;
+  }
+
+  print() {
+    // console.log(this.dom.gethtmlForComponent(this.paper.element.nativeElement));
   }
 }

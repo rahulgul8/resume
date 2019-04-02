@@ -59,4 +59,24 @@ export class DomService {
   appendChildHtml(parent: ViewContainerRef, component: HTMLElement, fieldName?: string, data?: any) {
     parent.element.nativeElement.appendChild(component);
   }
+
+  gethtmlForComponent(element: HTMLElement) {
+    var html = '<html><head>' +
+      document.getElementsByTagName('head')[0].innerHTML +
+      '</head><body><div>' +
+      element.innerHTML +
+      '</div></body></html>';
+    return html;
+  }
+
+
+  printForComponent(element: HTMLElement) {
+    var openWindow = window.open("", "title", "attributes");
+    var html = this.gethtmlForComponent(element);
+    openWindow.document.write(html);
+    openWindow.document.close();
+    openWindow.focus();
+    openWindow.print();
+    // openWindow.close();
+  }
 }

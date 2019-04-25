@@ -132,6 +132,6 @@ export class PaperstemplateComponent implements OnInit {
   }
 
   print() {
-    // console.log(this.dom.gethtmlForComponent(this.paper.element.nativeElement));
+    console.log(this.dom.gethtmlForComponent(this.paper.element.nativeElement));
   }
 }

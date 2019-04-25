@@ -11,7 +11,8 @@ import { ParentTemplate } from '../parent.template';
   templateUrl: './resume-test.component.html',
   styleUrls: ['./resume-test.component.css']
 })
-export class ResumeTestComponent extends ParentTemplate implements OnInit {
+export class ResumeTestComponent implements OnInit {
+  templates: any;
 
 
   ngAfterViewInit(): void {
@@ -30,7 +31,6 @@ export class ResumeTestComponent extends ParentTemplate implements OnInit {
   editable: boolean = true;
 
   constructor(private cdr: ChangeDetectorRef, public themeService: ThemeService, private popup: PopoverService, private dom: DomService) {
-    super();
     console.log(this.templates);
   }
 
@@ -49,17 +49,21 @@ export class ResumeTestComponent extends ParentTemplate implements OnInit {
   @ViewChild('dialog') dialogTemplate: TemplateRef<any>;
 
   ngOnInit(): void {
+    this.templates = [{ name: 'bullet', template: this.bulletTemplate },
+    { name: 'heading', template: this.headingTemplate },
+    { name: 'dialog', template: this.dialogTemplate }];
 
     this.dataList[0] = new Object();
     this.dataList[0].value = "1st value";
     this.dataList[0].placeholder = "1st value";
     this.dataList[0].focus = true;
     this.dataList[0].popover = true;
+    this.dataList[0].template = 'heading';
 
     this.dataList[0].bullets = new Array();
     this.dataList[0].bullets[0] = new Object();
     this.dataList[0].bullets[0].placeholder = "bullet 1";
-    this.dataList[0].bullets[0].template = this.bulletTemplate;
+    this.dataList[0].bullets[0].template = 'bullet';
     this.dataList[0].bullets[1] = new Object();
     this.dataList[0].bullets[1].placeholder = "bullet 2";
     this.dataList[0].dialog = new Object();
@@ -69,7 +73,7 @@ export class ResumeTestComponent extends ParentTemplate implements OnInit {
     this.dataList[0].artist = new Object();
     this.dataList[0].artist.value = "";
     this.dataList[0].artist.placeholder = "dialog";
-    this.dataList[0].template = this.headingTemplate;
+    this.dataList[0].template = 'heading';
     this.dataList[0].artist.hideIfEmpty = false;
   }
   dataList = [];
